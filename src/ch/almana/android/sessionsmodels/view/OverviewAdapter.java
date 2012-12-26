@@ -4,14 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.BaseModel;
+import ch.almana.android.sessionsmodels.model.TitleModel;
 
 public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel> {
 
@@ -23,9 +26,20 @@ public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = super.getView(position, convertView, parent);
 		ImageView iv = (ImageView)v.findViewById(R.id.ivPreview);
+		TextView tv = (TextView) v.findViewById(R.id.tvName);
 		try {
 			BaseModel baseModel = getItem(position);
-			iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), baseModel.image, 100));
+			if (baseModel.image != null) {
+				iv.setVisibility(View.VISIBLE);
+				iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), baseModel.image, 100));
+			} else {
+				iv.setVisibility(View.GONE);
+			}
+			if (baseModel instanceof TitleModel) {
+				v.setBackgroundColor(Color.LTGRAY);
+			} else {
+				v.setBackgroundColor(parent.getContext().getResources().getColor(android.R.color.background_light));
+			}
 		} catch (FileNotFoundException e) {
 			Logger.w("Image not found", e);
 		}

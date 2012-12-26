@@ -3,5 +3,7 @@
 
     <string name="app_name">Sessions &amp; Models</string>
     <string name="title_model_detail">Model Detail</string>
+    <string name="sessions">Sessions</string>
+    <string name="models">Models</string>
 
 </resources>

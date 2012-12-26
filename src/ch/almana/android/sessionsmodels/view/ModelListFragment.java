@@ -12,6 +12,7 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.model.BaseModel;
+import ch.almana.android.sessionsmodels.model.TitleModel;
 
 public class ModelListFragment extends ListFragment {
 
@@ -64,7 +65,9 @@ public class ModelListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		listItems = new ArrayList<BaseModel>();
+		listItems.add(new TitleModel(getString(R.string.sessions)));
 		listItems.addAll( SessionAcess.ITEMS);
+		listItems.add(new TitleModel(getString(R.string.models)));
 		listItems.addAll(ModelAcess.ITEMS);
 		ArrayAdapter<BaseModel> adapter = new OverviewAdapter<BaseModel>(
 				getActivity(),
