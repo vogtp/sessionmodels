@@ -1,7 +1,7 @@
 package ch.almana.android.sessionsmodels.view.models;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import java.io.FileNotFoundException;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
+import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.BaseModel;
 import ch.almana.android.sessionsmodels.view.ModelDetailActivity;
 import ch.almana.android.sessionsmodels.view.ModelListActivity;
@@ -72,8 +73,11 @@ public class ModelDetailFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
 			tvModelName.setText(mItem.name);
-			Bitmap image = BitmapFactory.decodeFile(mItem.image.getAbsolutePath());
-			ivModelImage.setImageBitmap(ImageHelper.scaleImage(getActivity(), image, 250));
+			try {
+				ivModelImage.setImageBitmap(ImageHelper.scaleImage(getActivity(), mItem.image, 250));
+			} catch (FileNotFoundException e) {
+				Logger.w("Image not found", e);
+			}
 			//			ImageView ivModelImage = (ImageView) rootView.findViewById(R.id.ivModelImage);
 			//			ivModelImage.setImageURI(Uri.fromFile(mItem.image));
 		}

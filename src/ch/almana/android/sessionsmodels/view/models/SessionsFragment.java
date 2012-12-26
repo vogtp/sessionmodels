@@ -1,9 +1,8 @@
 package ch.almana.android.sessionsmodels.view.models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SpinnerAdapter;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
+import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelDetailActivity;
 import ch.almana.android.sessionsmodels.view.ModelListActivity;
@@ -27,14 +27,19 @@ import ch.almana.android.sessionsmodels.view.ModelListFragment;
  */
 public class SessionsFragment extends Fragment {
 
+	private static boolean useGallery = false;
+
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
 	private SessionModel mItem;
 
-	private LinearLayout llTop;
+	//	private LinearLayout llTop;
 
+	@SuppressWarnings("deprecation")
 	private Gallery gallery;
+
+	private ListView listview;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,9 +63,13 @@ public class SessionsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_sessions, container, false);
-		llTop = ((LinearLayout) rootView.findViewById(R.id.llTop));
-		gallery = ((Gallery) rootView.findViewById(R.id.gallery1));
+		View rootView = inflater.inflate(useGallery ? R.layout.fragment_sessions_gallery : R.layout.fragment_sessions, container, false);
+		if (useGallery) {
+			gallery = ((Gallery) rootView.findViewById(R.id.gallery1));
+		} else {
+			//			llTop = ((LinearLayout) rootView.findViewById(R.id.llTop));
+			listview = ((ListView) rootView.findViewById(android.R.id.list));
+		}
 		return rootView;
 	}
 
@@ -71,20 +80,28 @@ public class SessionsFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
 			File[] images = mItem.dir.listFiles();
-			SpinnerAdapter adapter = new ImageAdapter(images);
-			gallery.setAdapter(adapter);
-			//			llTop.removeAllViews();
-			//			for (int i = 0; i < images.length; i++) {
-			//				llTop.addView(getImage(images[i]));
-			//			}
+			if (useGallery) {
+				SpinnerAdapter adapter = new ImageAdapter(images);
+				gallery.setAdapter(adapter);
+			} else {
+				//				llTop.removeAllViews();
+				//				for (int i = 0; i < images.length; i++) {
+				//					llTop.addView(getImage(images[i]));
+				//				}
+				listview.setAdapter(new ImageAdapter(images));
+			}
 
 		}
 	}
-	
+
 	private ImageView getImage(File image) {
 		ImageView iv = new ImageView(getActivity());
-		Bitmap b = BitmapFactory.decodeFile(image.getAbsolutePath());
-		iv.setImageBitmap(ImageHelper.scaleImage(getActivity(), b, 250));
+
+		try {
+			iv.setImageBitmap(ImageHelper.scaleImage(getActivity(), image, 250));
+		} catch (FileNotFoundException e) {
+			Logger.w("Cannot load image", e);
+		}
 		//			ImageView ivModelImage = (ImageView) rootView.findViewById(R.id.ivModelImage);
 		//			ivModelImage.setImageURI(Uri.fromFile(mItem.image));
 		return iv;

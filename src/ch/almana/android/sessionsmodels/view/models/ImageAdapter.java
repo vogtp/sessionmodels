@@ -1,18 +1,18 @@
 package ch.almana.android.sessionsmodels.view.models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import android.database.DataSetObserver;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
+import ch.almana.android.sessionsmodels.log.Logger;
 
-public class ImageAdapter implements SpinnerAdapter {
+public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
 
 	private final File[] images;
@@ -59,18 +59,21 @@ public class ImageAdapter implements SpinnerAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView iv = new ImageView(parent.getContext());
 		//iv.setScaleType(ImageView.ScaleType.CENTER);
-		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		//		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		//iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-		//iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		//iv.setScaleType(ImageView.ScaleType.FIT_XY);
 		//		iv.setScaleType(ImageView.ScaleType.FIT_END);
 
 		// Set the Width & Height of the individual images
-		iv.setLayoutParams(new Gallery.LayoutParams(150, 150));
+		int imageSize = 250;
+		//		iv.setLayoutParams(new Gallery.LayoutParams(imageSize, imageSize));
 
-		Bitmap b = BitmapFactory.decodeFile(images[position].getAbsolutePath());
-		iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), b, 150));
-		// TODO Auto-generated method stub
+		try {
+			iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), images[position], imageSize));
+		} catch (FileNotFoundException e) {
+			Logger.w("Image not found", e);
+		}
 		return iv;
 	}
 
@@ -93,6 +96,18 @@ public class ImageAdapter implements SpinnerAdapter {
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent) {
 		return null;
+	}
+
+	@Override
+	public boolean areAllItemsEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

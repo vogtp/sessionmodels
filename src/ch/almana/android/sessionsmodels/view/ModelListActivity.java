@@ -76,7 +76,7 @@ public class ModelListActivity extends FragmentActivity
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, BaseModel.getClassById(id));
+			Intent detailIntent = new Intent(this, ModelDetailActivity.class);//BaseModel.getClassById(id));
 			detailIntent.putExtra(ModelDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
