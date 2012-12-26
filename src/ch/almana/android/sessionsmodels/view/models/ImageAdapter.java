@@ -3,12 +3,14 @@ package ch.almana.android.sessionsmodels.view.models;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
+import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 
@@ -57,20 +59,21 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 	@SuppressWarnings("deprecation")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageView iv = new ImageView(parent.getContext());
+		Context ctx = parent.getContext();
+		ImageView iv = new ImageView(ctx);
 		//iv.setScaleType(ImageView.ScaleType.CENTER);
 		//		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		//iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-		iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		//		iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		//iv.setScaleType(ImageView.ScaleType.FIT_XY);
 		//		iv.setScaleType(ImageView.ScaleType.FIT_END);
 
 		// Set the Width & Height of the individual images
 		int imageSize = 250;
 		//		iv.setLayoutParams(new Gallery.LayoutParams(imageSize, imageSize));
-
+		iv.setBackgroundColor(ctx.getResources().getColor(R.color.galleryListFrame));
 		try {
-			iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), images[position], imageSize));
+			iv.setImageBitmap(ImageHelper.scaleImage(ctx, images[position], imageSize));
 		} catch (FileNotFoundException e) {
 			Logger.w("Image not found", e);
 		}
