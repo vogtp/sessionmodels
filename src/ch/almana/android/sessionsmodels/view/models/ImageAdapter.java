@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,10 +19,12 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
 
 	private final File[] images;
+	int imageSize;
 
-	public ImageAdapter(File[] images) {
+	public ImageAdapter(File[] images, int imageSize) {
 		super();
 		this.images = images;
+		this.imageSize = imageSize;
 	}
 
 	@Override
@@ -56,22 +59,24 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Context ctx = parent.getContext();
+
 		ImageView iv = new ImageView(ctx);
+		iv.setMaxHeight(ImageHelper.dpToPx(ctx, 250));
+		iv.setMaxWidth(ImageHelper.dpToPx(ctx, 250));
 		//iv.setScaleType(ImageView.ScaleType.CENTER);
 		//		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		//iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		//		iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		//iv.setScaleType(ImageView.ScaleType.FIT_XY);
 		//		iv.setScaleType(ImageView.ScaleType.FIT_END);
+		//		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 		// Set the Width & Height of the individual images
-		int imageSize = 250;
-		//		iv.setLayoutParams(new Gallery.LayoutParams(imageSize, imageSize));
 		iv.setBackgroundColor(ctx.getResources().getColor(R.color.galleryListFrame));
+		iv.setImageBitmap(BitmapFactory.decodeFile(images[position].getAbsolutePath()));
 		try {
 			iv.setImageBitmap(ImageHelper.scaleImage(ctx, images[position], imageSize));
 		} catch (FileNotFoundException e) {

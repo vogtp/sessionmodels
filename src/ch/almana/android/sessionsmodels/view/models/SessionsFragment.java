@@ -3,11 +3,14 @@ package ch.almana.android.sessionsmodels.view.models;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,6 +19,7 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
+import ch.almana.android.sessionsmodels.view.ImagePagerActivity;
 import ch.almana.android.sessionsmodels.view.ModelDetailActivity;
 import ch.almana.android.sessionsmodels.view.ModelListActivity;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
@@ -25,7 +29,7 @@ import ch.almana.android.sessionsmodels.view.ModelListFragment;
  * contained in a {@link ModelListActivity} in two-pane mode (on tablets) or a
  * {@link ModelDetailActivity} on handsets.
  */
-public class SessionsFragment extends Fragment {
+public class SessionsFragment extends Fragment implements OnItemClickListener {
 
 	private static boolean useGallery = false;
 
@@ -41,6 +45,8 @@ public class SessionsFragment extends Fragment {
 
 	private ListView listview;
 
+	private int sessionId;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -53,10 +59,8 @@ public class SessionsFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		if (getArguments().containsKey(ModelDetailFragment.ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = (SessionModel) ModelListFragment.listItems.get(getArguments().getInt(ModelDetailFragment.ARG_ITEM_ID));
+			sessionId = getArguments().getInt(ModelDetailFragment.ARG_ITEM_ID);
+			mItem = (SessionModel) ModelListFragment.listItems.get(sessionId);
 		}
 	}
 
@@ -69,6 +73,7 @@ public class SessionsFragment extends Fragment {
 		} else {
 			//			llTop = ((LinearLayout) rootView.findViewById(R.id.llTop));
 			listview = ((ListView) rootView.findViewById(android.R.id.list));
+			listview.setOnItemClickListener(this);
 		}
 		return rootView;
 	}
@@ -81,14 +86,14 @@ public class SessionsFragment extends Fragment {
 		if (mItem != null) {
 			File[] images = mItem.dir.listFiles();
 			if (useGallery) {
-				SpinnerAdapter adapter = new ImageAdapter(images);
+				SpinnerAdapter adapter = new ImageAdapter(images, 250);
 				gallery.setAdapter(adapter);
 			} else {
 				//				llTop.removeAllViews();
 				//				for (int i = 0; i < images.length; i++) {
 				//					llTop.addView(getImage(images[i]));
 				//				}
-				listview.setAdapter(new ImageAdapter(images));
+				listview.setAdapter(new ImageAdapter(images, 250));
 			}
 
 		}
@@ -105,6 +110,14 @@ public class SessionsFragment extends Fragment {
 		//			ImageView ivModelImage = (ImageView) rootView.findViewById(R.id.ivModelImage);
 		//			ivModelImage.setImageURI(Uri.fromFile(mItem.image));
 		return iv;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
+		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
+		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
+		getActivity().startActivity(i);
 	}
 
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.model.BaseModel;
@@ -65,11 +66,12 @@ public class ModelListFragment extends ListFragment {
 		listItems = new ArrayList<BaseModel>();
 		listItems.addAll( SessionAcess.ITEMS);
 		listItems.addAll(ModelAcess.ITEMS);
-		setListAdapter(new ArrayAdapter<BaseModel>(
+		ArrayAdapter<BaseModel> adapter = new OverviewAdapter<BaseModel>(
 				getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1,
-				listItems));
+				R.layout.list_item,
+				R.id.tvName,
+				listItems);
+		setListAdapter(adapter);
 	}
 
 	@Override

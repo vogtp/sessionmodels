@@ -25,7 +25,7 @@ public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel
 		ImageView iv = (ImageView)v.findViewById(R.id.ivPreview);
 		try {
 			BaseModel baseModel = getItem(position);
-			iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), baseModel.image, 50));
+			iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), baseModel.image, 100));
 		} catch (FileNotFoundException e) {
 			Logger.w("Image not found", e);
 		}
