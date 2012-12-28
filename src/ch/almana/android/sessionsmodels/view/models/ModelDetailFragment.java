@@ -2,6 +2,7 @@ package ch.almana.android.sessionsmodels.view.models;
 
 import java.io.FileNotFoundException;
 import java.util.Calendar;
+import java.util.Collection;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -55,6 +56,8 @@ public class ModelDetailFragment extends Fragment {
 
 	private EditText etTel;
 
+	private AnswersModel[] answers;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -86,13 +89,13 @@ public class ModelDetailFragment extends Fragment {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				DialogFragment newFragment = AnswerDialogFragment.newInstance(model.getAnswers().get(position), new Callback() {
+				DialogFragment newFragment = AnswerDialogFragment.newInstance(getModelAnswers()[position], new Callback() {
 
 					@Override
 					public void onAnswerSelected(AnswersModel answersModel) {
 						try {
 							ModelAcess.saveModelInfo(model);
-							lvAnswers.setAdapter(new AnswersAdapter(getActivity(), model.getAnswers()));
+							updateAnswersList();
 						} catch (Exception e) {
 							Logger.e("Cannot save model", e);
 						}
@@ -133,7 +136,6 @@ public class ModelDetailFragment extends Fragment {
 		return rootView;
 	}
 
-
 	private CharSequence getAge() {
 		String age;
 		if (model.hasBirthday()) {
@@ -166,8 +168,20 @@ public class ModelDetailFragment extends Fragment {
 			} catch (FileNotFoundException e) {
 				Logger.w("Image not found", e);
 			}
-			lvAnswers.setAdapter(new AnswersAdapter(getActivity(), model.getAnswers()));
+			updateAnswersList();
 		}
+	}
+
+	private void updateAnswersList() {
+		lvAnswers.setAdapter(new AnswersAdapter(getActivity(), getModelAnswers()));
+	}
+
+	private AnswersModel[] getModelAnswers() {
+		if (answers == null) {
+			Collection<AnswersModel> a = model.getAnswers().values();
+			answers = a.toArray(new AnswersModel[a.size()]);
+		}
+		return answers;
 	}
 
 	@Override
