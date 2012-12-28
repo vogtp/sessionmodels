@@ -17,20 +17,20 @@
 
     <EditText
         android:id="@+id/etModelNick"
+        style="@style/styleEtModelDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:ems="10"
-        android:padding="16dp" />
+        android:hint="@string/hintNick" />
 
     <Button
         android:id="@+id/buAge"
+        style="@style/styleEtModelDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/etModelNick"
-        android:padding="16dp"
         android:text="Age" >
 
         <requestFocus />
@@ -38,12 +38,30 @@
 
     <EditText
         android:id="@+id/etModelName"
+        style="@style/styleEtModelDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/buAge"
-        android:ems="10"
-        android:padding="16dp" />
+        android:hint="@string/hintName" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        style="@style/styleEtModelDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etModelName"
+        android:hint="@string/hintEmail" />
+
+    <EditText
+        android:id="@+id/etTel"
+        style="@style/styleEtModelDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etEmail"
+        android:hint="@string/hintTel" />
 
     <ListView
         android:id="@+id/lvAnswers"

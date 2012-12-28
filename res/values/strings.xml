@@ -6,5 +6,9 @@
     <string name="sessions">Sessions</string>
     <string name="models">Models</string>
     <string name="model_question_title">Would you like to do?</string>
+    <string name="hintNick">Nickname</string>
+    <string name="hintName">Name</string>
+    <string name="hintTel">Telephone</string>
+    <string name="hintEmail">e-Mail</string>
 
 </resources>

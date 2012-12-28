@@ -51,6 +51,10 @@ public class ModelDetailFragment extends Fragment {
 
 	private Button buAge;
 
+	private EditText etEmail;
+
+	private EditText etTel;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -73,6 +77,8 @@ public class ModelDetailFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_model_detail, container, false);
 		etModelNick = ((EditText) rootView.findViewById(R.id.etModelNick));
 		etModelName = ((EditText) rootView.findViewById(R.id.etModelName));
+		etTel = ((EditText) rootView.findViewById(R.id.etTel));
+		etEmail = ((EditText) rootView.findViewById(R.id.etEmail));
 		ivModelImage = ((ImageView) rootView.findViewById(R.id.ivModelImage));
 		lvAnswers = ((ListView) rootView.findViewById(R.id.lvAnswers));
 		buAge = ((Button) rootView.findViewById(R.id.buAge));
@@ -127,21 +133,6 @@ public class ModelDetailFragment extends Fragment {
 		return rootView;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		if (model != null) {
-			etModelNick.setText(model.getNick());
-			etModelName.setText(model.getName());
-			buAge.setText(getAge());
-			try {
-				ivModelImage.setImageBitmap(ImageHelper.scaleImage(getActivity(), model.getImage(), 250));
-			} catch (FileNotFoundException e) {
-				Logger.w("Image not found", e);
-			}
-			lvAnswers.setAdapter(new AnswersAdapter(getActivity(), model.getAnswers()));
-		}
-	}
 
 	private CharSequence getAge() {
 		String age;
@@ -162,10 +153,30 @@ public class ModelDetailFragment extends Fragment {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (model != null) {
+			etModelNick.setText(model.getNick());
+			etModelName.setText(model.getName());
+			etEmail.setText(model.getEmail());
+			etTel.setText(model.getTelephone());
+			buAge.setText(getAge());
+			try {
+				ivModelImage.setImageBitmap(ImageHelper.scaleImage(getActivity(), model.getImage(), 250));
+			} catch (FileNotFoundException e) {
+				Logger.w("Image not found", e);
+			}
+			lvAnswers.setAdapter(new AnswersAdapter(getActivity(), model.getAnswers()));
+		}
+	}
+
+	@Override
 	public void onPause() {
 		if (model != null) {
 			model.setNick(etModelNick.getText().toString());
 			model.setName(etModelName.getText().toString());
+			model.setEmail(etEmail.getText().toString());
+			model.setTelephone(etTel.getText().toString());
 			try {
 				ModelAcess.saveModelInfo(model);
 			} catch (Exception e) {

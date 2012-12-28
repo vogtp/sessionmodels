@@ -8,13 +8,18 @@ import org.json.JSONObject;
 import ch.almana.android.util.StringUtils;
 
 public class ModelModel extends BaseModel {
+
 	public static final long NO_BIRTHDAY = Long.MIN_VALUE;
 
 	private static final String BIRTHDAY = "birthday";
 	private static final String NICKNAME = "nickname";
 	private static final String ANSWERS = "answers";
+	private static final String TELEPHONE = "telephone";
+	private static final String EMAIL = "email";
 	private AnswersList answers = AnswersList.getDefaultQuestions();
 	private String nick;
+	private String telephone;
+	private String email;
 	private long birthday = NO_BIRTHDAY;
 
 	public ModelModel(String name, File dir, File image) {
@@ -39,6 +44,8 @@ public class ModelModel extends BaseModel {
 		answers.readJson(json.getJSONArray(ANSWERS));
 		nick = json.optString(NICKNAME);
 		birthday = json.optLong(BIRTHDAY);
+		email = json.optString(EMAIL);
+		telephone = json.optString(TELEPHONE);
 	}
 
 	@Override
@@ -47,6 +54,8 @@ public class ModelModel extends BaseModel {
 		json.put(ANSWERS, answers.getJson());
 		json.put(NICKNAME, nick);
 		json.put(BIRTHDAY, birthday);
+		json.put(EMAIL, email);
+		json.put(TELEPHONE, telephone);
 		return json;
 	}
 
@@ -74,5 +83,21 @@ public class ModelModel extends BaseModel {
 
 	public boolean hasBirthday() {
 		return birthday > ModelModel.NO_BIRTHDAY;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
