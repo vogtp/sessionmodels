@@ -1,10 +1,18 @@
 package ch.almana.android.sessionsmodels.access;
 
 import java.io.File;
+import java.io.FileFilter;
 
 import android.os.Environment;
 
 public class DirectoryAccess {
+	
+	public static FileFilter directoryFilter = new FileFilter() {
+		@Override
+		public boolean accept(File pathname) {
+			return pathname.isDirectory();
+		}
+	};
 
 	public static File getModelsDir() {
 		final File topDir = getTopDir();

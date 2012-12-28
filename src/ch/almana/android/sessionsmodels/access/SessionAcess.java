@@ -22,7 +22,7 @@ public class SessionAcess extends DirectoryAccess {
 
 	static {
 		File modelsDir = getSessionsDir();
-		File[] models = modelsDir.listFiles();
+		File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
 		for (int i = 0; i < models.length; i++) {
 			File m = models[i];
 			addItem(new SessionModel(m.getName(), m, m.listFiles()[0]));
