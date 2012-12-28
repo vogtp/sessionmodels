@@ -58,8 +58,8 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (getArguments().containsKey(ModelDetailFragment.ARG_ITEM_ID)) {
-			sessionId = getArguments().getInt(ModelDetailFragment.ARG_ITEM_ID);
+		if (getArguments().containsKey(ModelDetailFragment.EXTRA_MODEL_ID)) {
+			sessionId = getArguments().getInt(ModelDetailFragment.EXTRA_MODEL_ID);
 			mItem = (SessionModel) ModelListFragment.listItems.get(sessionId);
 		}
 	}

@@ -65,7 +65,7 @@ public class ModelListActivity extends FragmentActivity
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putInt(ModelDetailFragment.ARG_ITEM_ID, id);
+			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID, id);
 			Fragment fragment = BaseModel.getInstanceById(id);
 
 			fragment.setArguments(arguments);
@@ -77,7 +77,7 @@ public class ModelListActivity extends FragmentActivity
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
 			Intent detailIntent = new Intent(this, ModelDetailActivity.class);//BaseModel.getClassById(id));
-			detailIntent.putExtra(ModelDetailFragment.ARG_ITEM_ID, id);
+			detailIntent.putExtra(ModelDetailFragment.EXTRA_MODEL_ID, id);
 			startActivity(detailIntent);
 		}
 	}

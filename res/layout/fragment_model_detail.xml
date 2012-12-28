@@ -25,4 +25,12 @@
         android:text="name"
         tools:context=".ModelDetailFragment" />
 
+    <ListView
+        android:id="@+id/lvAnswers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ivModelImage" >
+    </ListView>
+
 </RelativeLayout>

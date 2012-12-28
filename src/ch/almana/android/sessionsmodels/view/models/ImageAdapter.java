@@ -8,6 +8,7 @@ import android.database.DataSetObserver;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
@@ -17,9 +18,9 @@ import ch.almana.android.sessionsmodels.log.Logger;
 
 public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
-
 	private final File[] images;
 	int imageSize;
+	private LayoutParams layoutParams;
 
 	public ImageAdapter(File[] images, int imageSize) {
 		super();
@@ -63,9 +64,15 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Context ctx = parent.getContext();
 
-		ImageView iv = new ImageView(ctx);
-		iv.setMaxHeight(ImageHelper.dpToPx(ctx, 250));
-		iv.setMaxWidth(ImageHelper.dpToPx(ctx, 250));
+		ImageView iv;
+
+		if (convertView instanceof ImageView) {
+			iv = (ImageView) convertView;
+		} else {
+			iv = new ImageView(ctx);
+		}
+		//		iv.setMaxHeight(ImageHelper.dpToPx(ctx, 250));
+		//		iv.setMaxWidth(ImageHelper.dpToPx(ctx, 250));
 		//iv.setScaleType(ImageView.ScaleType.CENTER);
 		//		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		//iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -76,11 +83,18 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
 		// Set the Width & Height of the individual images
 		iv.setBackgroundColor(ctx.getResources().getColor(R.color.galleryListFrame));
-		iv.setImageBitmap(BitmapFactory.decodeFile(images[position].getAbsolutePath()));
-		try {
-			iv.setImageBitmap(ImageHelper.scaleImage(ctx, images[position], imageSize));
-		} catch (FileNotFoundException e) {
-			Logger.w("Image not found", e);
+		int dp = ImageHelper.dpToPx(ctx, 250);
+		//		layoutParams = new LayoutParams(dp, dp);
+		if (layoutParams != null) {
+			iv.setLayoutParams(layoutParams);
+			iv.setImageBitmap(BitmapFactory.decodeFile(images[position].getAbsolutePath()));
+		} else {
+
+			try {
+				iv.setImageBitmap(ImageHelper.scaleImage(ctx, images[position], imageSize));
+			} catch (FileNotFoundException e) {
+				Logger.w("Image not found", e);
+			}
 		}
 		return iv;
 	}

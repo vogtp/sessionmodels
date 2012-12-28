@@ -41,8 +41,8 @@ public class ModelDetailActivity extends FragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			int id = getIntent().getIntExtra(ModelDetailFragment.ARG_ITEM_ID, -1);
-			arguments.putInt(ModelDetailFragment.ARG_ITEM_ID,
+			int id = getIntent().getIntExtra(ModelDetailFragment.EXTRA_MODEL_ID, -1);
+			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID,
 					id);
 			Fragment fragment = BaseModel.getInstanceById(id);
 			fragment.setArguments(arguments);
