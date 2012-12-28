@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:minHeight="250dp" >
 
     <ImageView
         android:id="@+id/ivModelImage"
@@ -14,16 +15,35 @@
         android:maxWidth="200dp"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/tvModelName"
-        style="?android:attr/textAppearanceLarge"
+    <EditText
+        android:id="@+id/etModelNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:ems="10"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/buAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etModelNick"
         android:padding="16dp"
-        android:text="name"
-        tools:context=".ModelDetailFragment" />
+        android:text="Age" >
+
+        <requestFocus />
+    </Button>
+
+    <EditText
+        android:id="@+id/etModelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buAge"
+        android:ems="10"
+        android:padding="16dp" />
 
     <ListView
         android:id="@+id/lvAnswers"

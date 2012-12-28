@@ -60,7 +60,7 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 
 		if (getArguments().containsKey(ModelDetailFragment.EXTRA_MODEL_ID)) {
 			sessionId = getArguments().getInt(ModelDetailFragment.EXTRA_MODEL_ID);
-			mItem = (SessionModel) ModelListFragment.listItems.get(sessionId);
+			mItem = (SessionModel) ModelListFragment.getListItems(getActivity()).get(sessionId);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
-			File[] images = mItem.dir.listFiles();
+			File[] images = mItem.getDir().listFiles();
 			if (useGallery) {
 				SpinnerAdapter adapter = new ImageAdapter(images, 250);
 				gallery.setAdapter(adapter);

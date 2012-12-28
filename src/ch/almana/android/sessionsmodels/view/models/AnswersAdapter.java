@@ -9,7 +9,7 @@ import ch.almana.android.sessionsmodels.model.AnswersModel;
 public class AnswersAdapter extends ArrayAdapter<AnswersModel> implements ListAdapter {
 
 	public AnswersAdapter(FragmentActivity activity, AnswersList answersList) {
-		super(activity, android.R.layout.simple_list_item_1, android.R.id.text1, answersList);
+		super(activity, android.R.layout.simple_list_item_1, android.R.id.text1, answersList.getAnswers());
 	}
 
 

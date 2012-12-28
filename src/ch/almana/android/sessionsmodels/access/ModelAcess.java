@@ -67,12 +67,12 @@ public class ModelAcess extends DirectoryAccess {
 
 	private static void addItem(ModelModel item) {
 		ITEMS.add(item);
-		ITEM_MAP.put(item.name, item);
+		ITEM_MAP.put(item.getName(), item);
 	}
 
 	public static void saveModelInfo(ModelModel model) throws Exception {
 		JSONObject json = model.getJson();
-		FileWriter writer = new FileWriter(getInfoFile(model.dir));
+		FileWriter writer = new FileWriter(getInfoFile(model.getDir()));
 		writer.write(json.toString());
 		writer.flush();
 		writer.close();

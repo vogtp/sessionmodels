@@ -31,9 +31,9 @@ public class ImagePagerActivity extends Activity {
 
 		sessionId = getIntent().getIntExtra(EXTRA_SESSION_ID, -1);
 		if (sessionId > -1) {
-			session = (SessionModel) ModelListFragment.listItems.get(sessionId);
+			session = (SessionModel) ModelListFragment.getListItems(this).get(sessionId);
 		}
-		File[] images = session.dir.listFiles();
+		File[] images = session.getDir().listFiles();
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);

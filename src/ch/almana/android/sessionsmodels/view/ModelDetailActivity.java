@@ -44,7 +44,7 @@ public class ModelDetailActivity extends FragmentActivity {
 			int id = getIntent().getIntExtra(ModelDetailFragment.EXTRA_MODEL_ID, -1);
 			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID,
 					id);
-			Fragment fragment = BaseModel.getInstanceById(id);
+			Fragment fragment = BaseModel.getInstanceById(this, id);
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.model_detail_container, fragment)

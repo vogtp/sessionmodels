@@ -66,7 +66,7 @@ public class ModelListActivity extends FragmentActivity
 			// fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID, id);
-			Fragment fragment = BaseModel.getInstanceById(id);
+			Fragment fragment = BaseModel.getInstanceById(this, id);
 
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()

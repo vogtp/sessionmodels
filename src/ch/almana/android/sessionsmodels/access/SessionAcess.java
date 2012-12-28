@@ -31,7 +31,7 @@ public class SessionAcess extends DirectoryAccess {
 
 	private static void addItem(SessionModel item) {
 		ITEMS.add(item);
-		ITEM_MAP.put(item.name, item);
+		ITEM_MAP.put(item.getName(), item);
 	}
 
 }

@@ -3,6 +3,7 @@ package ch.almana.android.sessionsmodels.view;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -51,7 +52,7 @@ public class ModelListFragment extends ListFragment {
 		}
 	};
 
-	public static ArrayList<BaseModel> listItems;
+	private static ArrayList<BaseModel> listItems;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -60,20 +61,26 @@ public class ModelListFragment extends ListFragment {
 	public ModelListFragment() {
 	}
 
+	public static ArrayList<BaseModel> getListItems(Context ctx) {
+		if (listItems == null) {
+			listItems = new ArrayList<BaseModel>();
+			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));
+			listItems.addAll(SessionAcess.ITEMS);
+			listItems.add(new TitleModel(ctx.getString(R.string.models)));
+			listItems.addAll(ModelAcess.ITEMS);
+		}
+		return listItems;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		listItems = new ArrayList<BaseModel>();
-		listItems.add(new TitleModel(getString(R.string.sessions)));
-		listItems.addAll( SessionAcess.ITEMS);
-		listItems.add(new TitleModel(getString(R.string.models)));
-		listItems.addAll(ModelAcess.ITEMS);
 		ArrayAdapter<BaseModel> adapter = new OverviewAdapter<BaseModel>(
 				getActivity(),
 				R.layout.list_item,
 				R.id.tvName,
-				listItems);
+				getListItems(getActivity()));
 		setListAdapter(adapter);
 	}
 
