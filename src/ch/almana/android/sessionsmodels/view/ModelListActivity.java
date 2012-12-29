@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import ch.almana.android.sessionsmodels.R;
+import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.model.BaseModel;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
@@ -80,5 +83,25 @@ public class ModelListActivity extends FragmentActivity
 			detailIntent.putExtra(ModelDetailFragment.EXTRA_MODEL_ID, id);
 			startActivity(detailIntent);
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.main_options, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemAddModel:
+			ModelAcess.addModel(this);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
 	}
 }

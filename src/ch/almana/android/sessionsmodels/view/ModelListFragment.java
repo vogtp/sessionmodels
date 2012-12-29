@@ -3,7 +3,10 @@ package ch.almana.android.sessionsmodels.view;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -17,6 +20,8 @@ import ch.almana.android.sessionsmodels.model.TitleModel;
 import ch.almana.android.sessionsmodels.view.adapter.OverviewAdapter;
 
 public class ModelListFragment extends ListFragment {
+
+	public static final String LIST_CHANGED = "LIST_CHANGED";
 
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
@@ -55,6 +60,8 @@ public class ModelListFragment extends ListFragment {
 
 	private static ArrayList<BaseModel> listItems;
 
+	private BroadcastReceiver listchangedReceiver;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -63,12 +70,15 @@ public class ModelListFragment extends ListFragment {
 	}
 
 	public static ArrayList<BaseModel> getListItems(Context ctx) {
-		if (listItems == null) {
+		return getListItems(ctx, false);
+	}
+	public static ArrayList<BaseModel> getListItems(Context ctx, boolean reread) {
+		if (listItems == null || reread) {
 			listItems = new ArrayList<BaseModel>();
 			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));
-			listItems.addAll(SessionAcess.ITEMS);
+			listItems.addAll(SessionAcess.getSessions(reread));
 			listItems.add(new TitleModel(ctx.getString(R.string.models)));
-			listItems.addAll(ModelAcess.ITEMS);
+			listItems.addAll(ModelAcess.getModels(reread));
 		}
 		return listItems;
 	}
@@ -76,12 +86,16 @@ public class ModelListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		updateList(false);
+	}
 
+	private void updateList(boolean rereadFiles) {
+		listItems = null;
 		ArrayAdapter<BaseModel> adapter = new OverviewAdapter<BaseModel>(
 				getActivity(),
 				R.layout.list_item,
 				R.id.tvName,
-				getListItems(getActivity()));
+				getListItems(getActivity(), rereadFiles));
 		setListAdapter(adapter);
 	}
 
@@ -104,14 +118,24 @@ public class ModelListFragment extends ListFragment {
 		if (!(activity instanceof Callbacks)) {
 			throw new IllegalStateException("Activity must implement fragment's callbacks.");
 		}
-
+		if (listchangedReceiver == null) {
+			listchangedReceiver = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context context, Intent intent) {
+					updateList(true);
+				}
+			};
+		}
+		activity.registerReceiver(listchangedReceiver, new IntentFilter(LIST_CHANGED));
 		mCallbacks = (Callbacks) activity;
 	}
 
 	@Override
 	public void onDetach() {
 		super.onDetach();
-
+		if (listchangedReceiver != null) {
+			getActivity().unregisterReceiver(listchangedReceiver);
+		}
 		// Reset the active callbacks interface to the dummy implementation.
 		mCallbacks = sDummyCallbacks;
 	}
@@ -155,4 +179,5 @@ public class ModelListFragment extends ListFragment {
 
 		mActivatedPosition = position;
 	}
+
 }

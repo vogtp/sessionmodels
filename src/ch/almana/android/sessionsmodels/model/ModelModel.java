@@ -22,6 +22,9 @@ public class ModelModel extends BaseModel {
 	private String email;
 	private long birthday = NO_BIRTHDAY;
 
+	public ModelModel(String name, File dir) {
+		this(name, dir, null);
+	}
 	public ModelModel(String name, File dir, File image) {
 		super(name, dir, image);
 	}

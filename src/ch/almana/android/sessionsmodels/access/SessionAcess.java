@@ -13,24 +13,32 @@ public class SessionAcess extends DirectoryAccess {
 	/**
 	 * An array of sample (dummy) items.
 	 */
-	public static List<SessionModel> ITEMS = new ArrayList<SessionModel>();
+	private static List<SessionModel> items = new ArrayList<SessionModel>();
 
 	/**
 	 * A map of sample (dummy) items, by ID.
 	 */
-	public static Map<String, SessionModel> ITEM_MAP = new HashMap<String, SessionModel>();
+	private static Map<String, SessionModel> ITEM_MAP = new HashMap<String, SessionModel>();
 
-	static {
-		File modelsDir = getSessionsDir();
-		File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
-		for (int i = 0; i < models.length; i++) {
-			File m = models[i];
-			addItem(new SessionModel(m.getName(), m, m.listFiles()[0]));
+	public static List<SessionModel> getSessions() {
+		return getSessions(false);
+	}
+
+	public static List<SessionModel> getSessions(boolean reread) {
+		if (items.size() < 1 || reread) {
+			items.clear();
+			File modelsDir = getSessionsDir();
+			File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
+			for (int i = 0; i < models.length; i++) {
+				File m = models[i];
+				addItem(new SessionModel(m.getName(), m, m.listFiles()[0]));
+			}
 		}
+		return items;
 	}
 
 	private static void addItem(SessionModel item) {
-		ITEMS.add(item);
+		items.add(item);
 		ITEM_MAP.put(item.getName(), item);
 	}
 

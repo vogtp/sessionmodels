@@ -62,7 +62,9 @@ public  class BaseModel {
 	public JSONObject getJson() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put(NAME, name);
-		json.put(IMAGE_PATH, image.getAbsolutePath());
+		if (image != null) {
+			json.put(IMAGE_PATH, image.getAbsolutePath());
+		}
 		json.put(DIRECTORY, dir.getAbsolutePath());
 		return json;
 
