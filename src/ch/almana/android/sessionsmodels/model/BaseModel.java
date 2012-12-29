@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import ch.almana.android.sessionsmodels.access.DirectoryAccess;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.gallery.GalleryOverviewFragment;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
@@ -102,6 +103,6 @@ public  class BaseModel {
 	}
 
 	public File getNoMediaFile() {
-		return new File(dir, ".nomedia");
+		return DirectoryAccess.getNoMediaFile(dir);
 	}
 }
