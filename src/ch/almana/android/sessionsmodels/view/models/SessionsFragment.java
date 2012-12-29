@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ImagePagerActivity;
@@ -20,7 +20,7 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 
 	private SessionModel session;
 
-	private ListView listview;
+	private GridView listview;
 
 	private int sessionId;
 
@@ -41,7 +41,7 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_sessions, container, false);
-		listview = ((ListView) rootView.findViewById(android.R.id.list));
+		listview = ((GridView) rootView.findViewById(android.R.id.list));
 		listview.setOnItemClickListener(this);
 		return rootView;
 	}
