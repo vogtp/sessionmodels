@@ -1,74 +1,78 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="250dp" >
+    android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/ivModelImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="#000000"
-        android:maxHeight="200dp"
-        android:maxWidth="200dp"
-        android:src="@drawable/ic_launcher" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/etModelNick"
-        style="@style/styleEtModelDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:hint="@string/hintNick" />
+        <ImageView
+            android:id="@+id/ivModelImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#000000"
+            android:maxHeight="200dp"
+            android:maxWidth="200dp"
+            android:src="@drawable/ic_launcher" />
 
-    <Button
-        android:id="@+id/buAge"
-        style="@style/styleEtModelDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etModelNick"
-        android:text="Age" >
+        <EditText
+            android:id="@+id/etModelNick"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:hint="@string/hintNick" />
 
-        <requestFocus />
-    </Button>
+        <Button
+            android:id="@+id/buAge"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etModelNick"
+            android:text="Age" >
 
-    <EditText
-        android:id="@+id/etModelName"
-        style="@style/styleEtModelDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/buAge"
-        android:hint="@string/hintName" />
+            <requestFocus />
+        </Button>
 
-    <EditText
-        android:id="@+id/etEmail"
-        style="@style/styleEtModelDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etModelName"
-        android:hint="@string/hintEmail" />
+        <EditText
+            android:id="@+id/etModelName"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/buAge"
+            android:hint="@string/hintName" />
 
-    <EditText
-        android:id="@+id/etTel"
-        style="@style/styleEtModelDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etEmail"
-        android:hint="@string/hintTel" />
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etModelName"
+            android:hint="@string/hintEmail" />
+
+        <EditText
+            android:id="@+id/etTel"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etEmail"
+            android:hint="@string/hintTel" />
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/lvAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ivModelImage" >
+        android:paddingTop="12dp" >
     </ListView>
 
-</RelativeLayout>
+</LinearLayout>

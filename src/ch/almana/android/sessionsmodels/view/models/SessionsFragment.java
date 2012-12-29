@@ -114,6 +114,7 @@ public class SessionsFragment extends Fragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
 		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
 		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
