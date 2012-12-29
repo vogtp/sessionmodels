@@ -76,6 +76,13 @@ public  class BaseModel {
 		this.name = name;
 	}
 
+	public File getDefaultImage(boolean use) {
+		File di = new File(dir, "model.png");
+		if (use) {
+			image = di;
+		}
+		return di;
+	}
 	public File getImage() {
 		return image;
 	}

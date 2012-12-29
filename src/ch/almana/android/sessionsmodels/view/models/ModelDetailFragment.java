@@ -1,12 +1,21 @@
 package ch.almana.android.sessionsmodels.view.models;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Collection;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,6 +48,8 @@ import ch.almana.android.sessionsmodels.view.models.AnswerDialogFragment.Callbac
 public class ModelDetailFragment extends Fragment {
 
 	public static final String EXTRA_MODEL_ID = "item_id";
+
+	protected static final int CAPTURE_IMAGE = 1;
 
 	private ModelModel model;
 
@@ -133,6 +144,14 @@ public class ModelDetailFragment extends Fragment {
 				dpd.show();
 			}
 		});
+		ivModelImage.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				startActivityForResult(intent, CAPTURE_IMAGE);
+			}
+		});
 		return rootView;
 	}
 
@@ -200,4 +219,50 @@ public class ModelDetailFragment extends Fragment {
 		super.onPause();
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Uri uriImage;
+		InputStream inputStream = null;
+		if ((/*requestCode == SELECT_IMAGE || */requestCode == CAPTURE_IMAGE) && resultCode == Activity.RESULT_OK) {
+
+			Bundle extras = data.getExtras();
+			Bitmap bitmap = (Bitmap) extras.get("data");
+			FileOutputStream out = null;
+			try {
+				out = new FileOutputStream(model.getDefaultImage(true));
+				bitmap.compress(CompressFormat.PNG, 90, out);
+			} catch (IOException e) {
+				Logger.w("Can not cache file", e);
+				//				getCacheFile(f, resolution).delete();
+			} finally {
+				if (out != null) {
+					try {
+						out.close();
+					} catch (IOException e) {
+						// ignore
+					}
+				}
+			}
+			//			CacheHelper.deleteCachedFile(getActivity());
+			//			ivModelImage.setImageBitmap(mImageBitmap);
+
+			//			uriImage = data.getData();
+			//			try {
+			//				FragmentActivity activity = getActivity();
+			//				ContentResolver contentResolver = activity.getContentResolver();
+			//				inputStream = contentResolver.openInputStream(uriImage);
+			//				Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, null);
+			//				ivModelImage.setImageBitmap(bitmap);
+			//			} catch (NullPointerException e) {
+			//				e.printStackTrace();
+			//			} catch (FileNotFoundException e) {
+			//				e.printStackTrace();
+			//			} catch (Exception e) {
+			//				e.printStackTrace();
+			//			}
+			//			ivModelImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+			//			ivModelImage.setAdjustViewBounds(true);
+		}
+	}
 }
