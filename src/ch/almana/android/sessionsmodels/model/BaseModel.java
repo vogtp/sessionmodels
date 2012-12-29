@@ -41,6 +41,8 @@ public  class BaseModel {
 			return new ModelDetailFragment();
 		} else if (ModelListFragment.getListItems(ctx).get(id) instanceof SessionModel) {
 			return new GalleryOverviewFragment();
+		} else if (ModelListFragment.getListItems(ctx).get(id) instanceof PortfolioModel) {
+			return new GalleryOverviewFragment();
 		}
 		return null;
 	}

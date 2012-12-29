@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.almana.android.sessionsmodels.R;
+import ch.almana.android.sessionsmodels.access.DirectoryAccess;
 import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.model.BaseModel;
@@ -75,6 +76,7 @@ public class ModelListFragment extends ListFragment {
 	public static ArrayList<BaseModel> getListItems(Context ctx, boolean reread) {
 		if (listItems == null || reread) {
 			listItems = new ArrayList<BaseModel>();
+			listItems.add(DirectoryAccess.getPortfolio(ctx));
 			listItems.add(new TitleModel(ctx.getString(R.string.models)));
 			listItems.addAll(ModelAcess.getModels(reread));
 			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));

@@ -27,6 +27,7 @@ public class CacheHelper {
 		try {
 			out = new FileOutputStream(getCacheFile(f, resolution));
 			bitmap.compress(CompressFormat.PNG, 90, out);
+			out.flush();
 		} catch (IOException e) {
 			Logger.w("Can not cache file", e);
 			getCacheFile(f, resolution).delete();

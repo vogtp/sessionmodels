@@ -3,12 +3,11 @@ package ch.almana.android.sessionsmodels.view.gallery;
 import java.io.File;
 
 import android.app.Activity;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.widget.Gallery;
 import android.widget.SpinnerAdapter;
 import ch.almana.android.sessionsmodels.R;
+import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.adapter.ImageAdapter;
@@ -35,11 +34,8 @@ public class ImagePagerActivity extends Activity {
 			session = (SessionModel) ModelListFragment.getListItems(this).get(sessionId);
 		}
 		File[] images = session.getDir().listFiles();
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		int width = size.x;
-		SpinnerAdapter adapter = new ImageAdapter(images, width);
+
+		SpinnerAdapter adapter = new ImageAdapter(images, ImageHelper.getDisplayWidth(this));
 		gallery.setAdapter(adapter);
 	}
 

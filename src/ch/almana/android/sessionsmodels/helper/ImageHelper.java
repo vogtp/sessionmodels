@@ -3,10 +3,13 @@ package ch.almana.android.sessionsmodels.helper;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.view.Display;
 
 public class ImageHelper {
 
@@ -70,5 +73,12 @@ public class ImageHelper {
 	{
 		float density = ctx.getResources().getDisplayMetrics().density;
 		return Math.round(dp * density);
+	}
+
+	public static int getDisplayWidth(Activity act) {
+		Display display = act.getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return size.x;
 	}
 }
