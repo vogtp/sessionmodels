@@ -1,4 +1,4 @@
-package ch.almana.android.sessionsmodels.view.models;
+package ch.almana.android.sessionsmodels.view.gallery;
 
 import java.io.File;
 import java.io.FileNotFoundException;

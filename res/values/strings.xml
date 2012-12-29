@@ -10,5 +10,7 @@
     <string name="hintName">Name</string>
     <string name="hintTel">Telephone</string>
     <string name="hintEmail">e-Mail</string>
+    <string name="menuItemShowInGallery">Show in Gallery</string>
+    <string name="removed_from_gallery">" Removed %s from gallery"</string>
 
 </resources>

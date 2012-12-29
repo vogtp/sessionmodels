@@ -8,8 +8,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
+import ch.almana.android.sessionsmodels.view.gallery.GalleryOverviewFragment;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
-import ch.almana.android.sessionsmodels.view.models.SessionsFragment;
 
 public  class BaseModel {
 	private static final String DIRECTORY = "directory";
@@ -39,7 +39,7 @@ public  class BaseModel {
 		if (ModelListFragment.getListItems(ctx).get(id) instanceof ModelModel) {
 			return new ModelDetailFragment();
 		} else if (ModelListFragment.getListItems(ctx).get(id) instanceof SessionModel) {
-			return new SessionsFragment();
+			return new GalleryOverviewFragment();
 		}
 		return null;
 	}
@@ -48,7 +48,7 @@ public  class BaseModel {
 		if (ModelListFragment.getListItems(ctx).get(id) instanceof ModelModel) {
 			return ModelDetailFragment.class;
 		} else if (ModelListFragment.getListItems(ctx).get(id) instanceof SessionModel) {
-			return SessionsFragment.class;
+			return GalleryOverviewFragment.class;
 		}
 		return null;
 	}
@@ -99,4 +99,7 @@ public  class BaseModel {
 		this.dir = dir;
 	}
 
+	public File getNoMediaFile() {
+		return new File(dir, ".nomedia");
+	}
 }

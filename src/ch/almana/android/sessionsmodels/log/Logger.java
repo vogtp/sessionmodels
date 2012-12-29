@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Logger {
-	public final static String TAG = "swissLaw";
+	public final static String TAG = "sessionsAndModels";
 	private static final String STACKTRACE_TAG = TAG + "StracktraceLog";
 
 	public final static boolean DEBUG = false;
