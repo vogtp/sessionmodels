@@ -75,10 +75,10 @@ public class ModelListFragment extends ListFragment {
 	public static ArrayList<BaseModel> getListItems(Context ctx, boolean reread) {
 		if (listItems == null || reread) {
 			listItems = new ArrayList<BaseModel>();
-			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));
-			listItems.addAll(SessionAcess.getSessions(reread));
 			listItems.add(new TitleModel(ctx.getString(R.string.models)));
 			listItems.addAll(ModelAcess.getModels(reread));
+			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));
+			listItems.addAll(SessionAcess.getSessions(reread));
 		}
 		return listItems;
 	}
