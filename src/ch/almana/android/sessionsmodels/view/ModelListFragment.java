@@ -14,6 +14,7 @@ import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.model.BaseModel;
 import ch.almana.android.sessionsmodels.model.TitleModel;
+import ch.almana.android.sessionsmodels.view.adapter.OverviewAdapter;
 
 public class ModelListFragment extends ListFragment {
 

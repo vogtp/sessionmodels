@@ -1,4 +1,4 @@
-package ch.almana.android.sessionsmodels.view.gallery;
+package ch.almana.android.sessionsmodels.view.adapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,9 +63,7 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Context ctx = parent.getContext();
-
 		ImageView iv;
-
 		if (convertView instanceof ImageView) {
 			iv = (ImageView) convertView;
 		} else {
@@ -83,7 +81,7 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
 		// Set the Width & Height of the individual images
 		iv.setBackgroundColor(ctx.getResources().getColor(R.color.galleryListFrame));
-		int dp = ImageHelper.dpToPx(ctx, 250);
+		int dp = ImageHelper.dpToPx(ctx, imageSize);
 		//		layoutParams = new LayoutParams(dp, dp);
 		if (layoutParams != null) {
 			iv.setLayoutParams(layoutParams);

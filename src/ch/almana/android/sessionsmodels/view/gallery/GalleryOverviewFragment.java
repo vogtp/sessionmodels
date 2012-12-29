@@ -20,8 +20,8 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
-import ch.almana.android.sessionsmodels.view.ImagePagerActivity;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
+import ch.almana.android.sessionsmodels.view.adapter.ImageAdapter;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
 public class GalleryOverviewFragment extends Fragment implements OnItemClickListener {

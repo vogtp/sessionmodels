@@ -1,4 +1,4 @@
-package ch.almana.android.sessionsmodels.view;
+package ch.almana.android.sessionsmodels.view.gallery;
 
 import java.io.File;
 
@@ -10,7 +10,8 @@ import android.widget.Gallery;
 import android.widget.SpinnerAdapter;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.model.SessionModel;
-import ch.almana.android.sessionsmodels.view.gallery.ImageAdapter;
+import ch.almana.android.sessionsmodels.view.ModelListFragment;
+import ch.almana.android.sessionsmodels.view.adapter.ImageAdapter;
 
 public class ImagePagerActivity extends Activity {
 
