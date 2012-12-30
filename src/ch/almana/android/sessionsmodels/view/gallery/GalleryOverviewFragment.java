@@ -1,12 +1,9 @@
 package ch.almana.android.sessionsmodels.view.gallery;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -22,9 +19,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 import ch.almana.android.sessionsmodels.R;
-import ch.almana.android.sessionsmodels.access.DirectoryAccess;
+import ch.almana.android.sessionsmodels.access.PortfolioAccess;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
-import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
@@ -143,7 +139,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 		switch (item.getItemId()) {
 		case R.id.itemPortfolio:
 			File image = images[(int) info.id];
-			addToPortfolio(image);
+			PortfolioAccess.addToPortfolio(getActivity(), image);
 			return true;
 
 		default:
@@ -152,32 +148,4 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	}
 
-	private void addToPortfolio(final File image) {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				File portfolioFile = new File(DirectoryAccess.getPortfolioDir(), image.getName());
-				FileOutputStream out = null;
-				try {
-					Bitmap bitmap = ImageHelper.scaleImage(getActivity(), image, ImageHelper.getDisplayWidth(getActivity()));
-					out = new FileOutputStream(portfolioFile);
-					bitmap.compress(CompressFormat.PNG, 90, out);
-					out.flush();
-				} catch (IOException e) {
-					Logger.e("Cannot save to portfolio", e);
-					Toast.makeText(getActivity(), getActivity().getString(R.string.error_saving_to_portfolio), Toast.LENGTH_LONG).show();
-				} finally {
-					if (out != null) {
-						try {
-							out.close();
-						} catch (IOException e) {
-							// ignore
-						}
-					}
-				}
-			}
-		}).start();
-
-	}
 }
