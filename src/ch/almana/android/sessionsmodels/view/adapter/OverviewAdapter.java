@@ -29,32 +29,32 @@ public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel
 		View v = super.getView(position, convertView, parent);
 		ImageView iv = (ImageView) v.findViewById(R.id.ivPreview);
 		TextView tv = (TextView) v.findViewById(R.id.tvName);
-		try {
-			BaseModel baseModel = getItem(position);
-			Bitmap bm = null;
-			if (baseModel.getImage() != null) {
+		BaseModel baseModel = getItem(position);
+		Bitmap bm = null;
+		if (baseModel.getImage() != null) {
+			try {
 				bm = ImageHelper.scaleImage(parent.getContext(), baseModel.getImage(), 100);
-				if (bm != null && bm.getWidth() > 70) {
-					iv.setImageBitmap(bm);
-				} else {
-					bm = null;
-				}
+			} catch (FileNotFoundException e) {
+				Logger.w("Image not found", e);
 			}
-			if (bm == null) {
-				iv.setImageDrawable(parent.getResources().getDrawable(R.drawable.modelnoimage100));
-			}
-			if (baseModel instanceof TitleModel) {
-				v.setBackgroundColor(Color.LTGRAY);
-				iv.setVisibility(View.GONE);
+			if (bm != null && bm.getWidth() > 70) {
+				iv.setImageBitmap(bm);
 			} else {
-				v.setBackgroundColor(parent.getContext().getResources().getColor(android.R.color.background_light));
-				iv.setVisibility(View.VISIBLE);
+				bm = null;
 			}
-			if (baseModel instanceof ModelModel) {
-				tv.setText(((ModelModel) baseModel).getNick());
-			}
-		} catch (FileNotFoundException e) {
-			Logger.w("Image not found", e);
+		}
+		if (bm == null) {
+			iv.setImageDrawable(parent.getResources().getDrawable(R.drawable.modelnoimage100));
+		}
+		if (baseModel instanceof TitleModel) {
+			v.setBackgroundColor(Color.LTGRAY);
+			iv.setVisibility(View.GONE);
+		} else {
+			v.setBackgroundColor(parent.getContext().getResources().getColor(android.R.color.background_light));
+			iv.setVisibility(View.VISIBLE);
+		}
+		if (baseModel instanceof ModelModel) {
+			tv.setText(((ModelModel) baseModel).getNick());
 		}
 		return v;
 	}

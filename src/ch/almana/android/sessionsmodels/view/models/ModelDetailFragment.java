@@ -182,10 +182,21 @@ public class ModelDetailFragment extends Fragment {
 			etEmail.setText(model.getEmail());
 			etTel.setText(model.getTelephone());
 			buAge.setText(getAge());
-			try {
-				ivModelImage.setImageBitmap(ImageHelper.scaleImage(getActivity(), model.getImage(), 250));
-			} catch (FileNotFoundException e) {
-				Logger.w("Image not found", e);
+			Bitmap bm = null;
+			if (model.getImage() != null) {
+				try {
+					bm = ImageHelper.scaleImage(getActivity(), model.getImage(), 250);
+				} catch (FileNotFoundException e) {
+					Logger.e("Cannot load image", e);
+				}
+				if (bm != null && bm.getWidth() < 70) {
+					bm = null;
+				}
+			}
+			if (bm == null) {
+				ivModelImage.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.modelnoimage250));
+			} else {
+				ivModelImage.setImageBitmap(bm);
 			}
 			updateAnswersList();
 		}
