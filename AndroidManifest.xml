@@ -34,7 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ModelListActivity" />
         </activity>
-        <activity android:name=".view.ImagePagerActivity" >
+        <activity android:name=".view.gallery.ImagePagerActivity" >
         </activity>
     </application>
 
