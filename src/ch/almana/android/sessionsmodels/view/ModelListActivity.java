@@ -52,6 +52,7 @@ public class ModelListActivity extends FragmentActivity
 			((ModelListFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.model_list))
 					.setActivateOnItemClick(true);
+			loadDetailsFragment(0);
 		}
 
 		// TODO: If exposing deep links into your app, handle intents here.
@@ -67,14 +68,7 @@ public class ModelListActivity extends FragmentActivity
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID, id);
-			Fragment fragment = BaseModel.getInstanceById(this, id);
-
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.model_detail_container, fragment)
-					.commit();
+			loadDetailsFragment(id);
 
 		} else {
 			// In single-pane mode, simply start the detail activity
@@ -83,6 +77,17 @@ public class ModelListActivity extends FragmentActivity
 			detailIntent.putExtra(ModelDetailFragment.EXTRA_MODEL_ID, id);
 			startActivity(detailIntent);
 		}
+	}
+
+	private void loadDetailsFragment(int id) {
+		Bundle arguments = new Bundle();
+		arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID, id);
+		Fragment fragment = BaseModel.getInstanceById(this, id);
+
+		fragment.setArguments(arguments);
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.model_detail_container, fragment)
+				.commit();
 	}
 
 	@Override
