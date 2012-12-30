@@ -105,7 +105,7 @@ public class ModelDetailFragment extends Fragment {
 					@Override
 					public void onAnswerSelected(AnswersModel answersModel) {
 						try {
-							ModelAcess.saveModelInfo(model);
+							ModelAcess.save(model);
 							updateAnswersList();
 						} catch (Exception e) {
 							Logger.e("Cannot save model", e);
@@ -222,7 +222,7 @@ public class ModelDetailFragment extends Fragment {
 			model.setEmail(etEmail.getText().toString());
 			model.setTelephone(etTel.getText().toString());
 			try {
-				ModelAcess.saveModelInfo(model);
+				ModelAcess.save(model);
 			} catch (Exception e) {
 				Logger.e("Cannot save model", e);
 			}

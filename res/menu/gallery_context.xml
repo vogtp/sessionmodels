@@ -5,5 +5,9 @@
         android:id="@+id/itemPortfolio"
         android:title="@string/menuItemAddToPortfolio">
     </item>
+    <item
+        android:id="@+id/itemUseAsGalleryImage"
+        android:title="@string/menuItemUseAsGalleryImage">
+    </item>
 
 </menu>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 
 public class SessionAcess extends DirectoryAccess {
@@ -31,7 +32,16 @@ public class SessionAcess extends DirectoryAccess {
 			File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
 			for (int i = 0; i < models.length; i++) {
 				File m = models[i];
-				addItem(new SessionModel(m.getName(), m, m.listFiles()[0]));
+				SessionModel session = null;
+				try {
+					session = new SessionModel(readJsonInfo(m));
+				} catch (Exception e) {
+					Logger.e("Cannot parse json", e);
+				}
+				if (session == null) {
+					session = new SessionModel(m.getName(), m, m.listFiles()[0]);
+				}
+				addItem(session );
 			}
 		}
 		return items;

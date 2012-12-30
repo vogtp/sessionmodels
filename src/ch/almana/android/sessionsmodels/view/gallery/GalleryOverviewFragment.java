@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.PortfolioAccess;
+import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
@@ -136,10 +137,19 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 			return false;
 		}
 
+		File image = images[(int) info.id];
 		switch (item.getItemId()) {
 		case R.id.itemPortfolio:
-			File image = images[(int) info.id];
 			PortfolioAccess.addToPortfolio(getActivity(), image);
+			return true;
+		case R.id.itemUseAsGalleryImage:
+			session.setImage(image);
+			try {
+				SessionAcess.save(session);
+				getActivity().sendBroadcast(new Intent(ModelListFragment.LIST_CHANGED));
+			} catch (Exception e) {
+				Logger.e("Cannot save session", e);
+			}
 			return true;
 
 		default:

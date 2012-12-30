@@ -20,5 +20,6 @@
     <string name="dia_add_model_title">Add Model</string>
     <string name="dia_add_model_msg">Choose model nickname:</string>
     <string name="dia_add_model_fail">"Add model failed. "</string>
+    <string name="menuItemUseAsGalleryImage">Use as gallery image</string>
 
 </resources>

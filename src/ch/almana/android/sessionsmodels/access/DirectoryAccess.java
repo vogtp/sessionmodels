@@ -2,14 +2,19 @@ package ch.almana.android.sessionsmodels.access;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
-import android.content.Context;
+import org.json.JSONObject;
+
 import android.os.Environment;
-import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.BaseModel;
-import ch.almana.android.sessionsmodels.model.PortfolioModel;
 
 public class DirectoryAccess {
 
@@ -44,6 +49,36 @@ public class DirectoryAccess {
 		return topDir;
 	}
 
+	protected static File getInfoFile(File m) {
+		return new File(m, "info.json");
+	}
+
+	protected static JSONObject readJsonInfo(File m) throws Exception {
+		File jsonFile = getInfoFile(m);
+		if (!jsonFile.exists()) {
+			throw new FileNotFoundException(jsonFile.getAbsolutePath());
+		}
+		FileInputStream stream;
+		stream = new FileInputStream(jsonFile);
+		String jString = null;
+		try {
+			FileChannel fc = stream.getChannel();
+			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+			jString = Charset.defaultCharset().decode(bb).toString();
+		} finally {
+			stream.close();
+		}
+
+		return new JSONObject(jString);
+	}
+	public static void save(BaseModel model) throws Exception {
+		JSONObject json = model.getJson();
+		FileWriter writer = new FileWriter(getInfoFile(model.getDir()));
+		writer.write(json.toString());
+		writer.flush();
+		writer.close();
+	}
+
 	public static File getModelsDir() {
 		return getSubdir("models", true);
 	}
@@ -58,10 +93,6 @@ public class DirectoryAccess {
 
 	public static File getNoMediaFile(File dir) {
 		return new File(dir, ".nomedia");
-	}
-
-	public static BaseModel getPortfolio(Context ctx) {
-		return new PortfolioModel(ctx.getString(R.string.portfolio), getPortfolioDir());
 	}
 
 }
