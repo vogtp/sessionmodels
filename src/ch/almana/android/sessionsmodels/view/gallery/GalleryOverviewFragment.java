@@ -28,7 +28,6 @@ import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
-import ch.almana.android.sessionsmodels.view.adapter.ImageAdapter;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
 public class GalleryOverviewFragment extends Fragment implements OnItemClickListener {
@@ -70,7 +69,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 		if (session != null) {
 			images = session.getDir().listFiles();
-			gridview.setAdapter(new ImageAdapter(images, 250));
+			gridview.setAdapter(new GalleryOverviewImageAdapter(images, 250));
 		}
 	}
 

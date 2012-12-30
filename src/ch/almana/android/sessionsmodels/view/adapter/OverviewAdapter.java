@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,20 +27,28 @@ public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = super.getView(position, convertView, parent);
-		ImageView iv = (ImageView)v.findViewById(R.id.ivPreview);
+		ImageView iv = (ImageView) v.findViewById(R.id.ivPreview);
 		TextView tv = (TextView) v.findViewById(R.id.tvName);
 		try {
 			BaseModel baseModel = getItem(position);
+			Bitmap bm = null;
 			if (baseModel.getImage() != null) {
-				iv.setVisibility(View.VISIBLE);
-				iv.setImageBitmap(ImageHelper.scaleImage(parent.getContext(), baseModel.getImage(), 100));
-			} else {
-				iv.setVisibility(View.GONE);
+				bm = ImageHelper.scaleImage(parent.getContext(), baseModel.getImage(), 100);
+				if (bm != null && bm.getWidth() > 70) {
+					iv.setImageBitmap(bm);
+				} else {
+					bm = null;
+				}
+			}
+			if (bm == null) {
+				iv.setImageDrawable(parent.getResources().getDrawable(R.drawable.modelnoimage100));
 			}
 			if (baseModel instanceof TitleModel) {
 				v.setBackgroundColor(Color.LTGRAY);
+				iv.setVisibility(View.GONE);
 			} else {
 				v.setBackgroundColor(parent.getContext().getResources().getColor(android.R.color.background_light));
+				iv.setVisibility(View.VISIBLE);
 			}
 			if (baseModel instanceof ModelModel) {
 				tv.setText(((ModelModel) baseModel).getNick());
@@ -49,5 +58,4 @@ public class OverviewAdapter<T extends BaseModel> extends ArrayAdapter<BaseModel
 		}
 		return v;
 	}
-
 }
