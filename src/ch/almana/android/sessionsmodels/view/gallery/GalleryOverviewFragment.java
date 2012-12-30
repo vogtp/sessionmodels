@@ -17,9 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.Toast;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.DirectoryAccess;
@@ -35,7 +35,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	private SessionModel session;
 
-	private GridView gridview;
+	private AbsListView gridview;
 
 	private int sessionId;
 
@@ -58,7 +58,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.gallery_overview_fragment, container, false);
-		gridview = ((GridView) rootView.findViewById(android.R.id.list));
+		gridview = ((AbsListView) rootView.findViewById(android.R.id.list));
 		gridview.setOnItemClickListener(this);
 		registerForContextMenu(gridview);
 		return rootView;
