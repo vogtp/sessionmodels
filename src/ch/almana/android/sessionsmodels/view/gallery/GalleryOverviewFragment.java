@@ -72,7 +72,6 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
 		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
 		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
