@@ -11,10 +11,14 @@
     <string name="hintTel">Telephone</string>
     <string name="hintEmail">e-Mail</string>
     <string name="menuItemShowInGallery">Show in Gallery</string>
-    <string name="removed_from_gallery">" Removed %s from gallery"</string>
+    <string name="removed_from_gallery">" Removed '%s' from android gallery"</string>
+    <string name="added_from_gallery">" Added '%s' to android gallery"</string>
     <string name="menuItemAddModel">Add Model</string>
     <string name="portfolio">Portfolio</string>
     <string name="menuItemAddToPortfolio">Add to portfolio</string>
     <string name="error_saving_to_portfolio">Error saving to portfolio</string>
+    <string name="dia_add_model_title">Add Model</string>
+    <string name="dia_add_model_msg">Choose model nickname:</string>
+    <string name="dia_add_model_fail">"Add model failed. "</string>
 
 </resources>

@@ -114,7 +114,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 			} else {
 				session.getNoMediaFile().delete();
 				Logger.i("removed .nomedia file");
-				Toast.makeText(getActivity(), session.getName() + " added to gallery", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), getString(R.string.added_from_gallery, session.getName()), Toast.LENGTH_SHORT).show();
 			}
 			GalleryHelper.rescanDirectories(getActivity(), session.getDir());
 			return true;

@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
+import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.ModelModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
@@ -92,8 +93,8 @@ public class ModelAcess extends DirectoryAccess {
 
 	public static void addModel(final Context ctx) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-		builder.setTitle("Add Model");
-		builder.setMessage("Choose model nickname:");
+		builder.setTitle(R.string.dia_add_model_title);
+		builder.setMessage(R.string.dia_add_model_msg);
 		final EditText userInput = new EditText(ctx);
 		builder.setView(userInput);
 		builder.setCancelable(false);
@@ -117,7 +118,7 @@ public class ModelAcess extends DirectoryAccess {
 							ctx.sendBroadcast(new Intent(ModelListFragment.LIST_CHANGED));
 						} catch (Exception e) {
 							Logger.e("Cannot save model info after creating new model", e);
-							Toast.makeText(ctx, "Add model failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+							Toast.makeText(ctx, R.string.dia_add_model_fail, Toast.LENGTH_LONG).show();
 						}
 					}
 				});
