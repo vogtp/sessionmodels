@@ -18,6 +18,7 @@ public class ImagePagerActivity extends Activity {
 	public static final String EXTRA_IMAGE_ID = "EXTRA_IMAGE_ID";
 	private int sessionId;
 	private SessionModel session;
+	@SuppressWarnings("deprecation")
 	private Gallery gallery;
 
 	/** Called when the activity is first created. */

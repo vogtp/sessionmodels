@@ -16,6 +16,7 @@
     <string name="menuItemAddModel">Add Model</string>
     <string name="portfolio">Portfolio</string>
     <string name="menuItemAddToPortfolio">Add to portfolio</string>
+    <string name="menuItemRemoveFromPortfolio">Remove from portfolio</string>
     <string name="error_saving_to_portfolio">Error saving to portfolio</string>
     <string name="dia_add_model_title">Add Model</string>
     <string name="dia_add_model_msg">Choose model nickname:</string>

@@ -58,4 +58,19 @@ public class PortfolioAccess extends DirectoryAccess {
 		}).start();
 
 	}
+
+	public static boolean isInPortfolio(File image) {
+		if (image == null) {
+			return false;
+		}
+		File pFile = new File(getPortfolioDir(), image.getName());
+		if (pFile == null || !pFile.isFile()) {
+			return false;
+		}
+		return pFile.exists();
+	}
+
+	public static void removeFromPortfolio(File image) {
+		image.delete();
+	}
 }

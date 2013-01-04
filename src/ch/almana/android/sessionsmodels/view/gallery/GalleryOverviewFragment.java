@@ -29,6 +29,7 @@ import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
 public class GalleryOverviewFragment extends Fragment implements OnItemClickListener {
 
+
 	private SessionModel session;
 
 	private AbsListView gridview;
@@ -63,7 +64,10 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 	@Override
 	public void onResume() {
 		super.onResume();
+		reload();
+	}
 
+	private void reload() {
 		if (session != null) {
 			images = session.getDir().listFiles();
 			gridview.setAdapter(new GalleryOverviewImageAdapter(images, 250));
@@ -124,22 +128,27 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		getActivity().getMenuInflater().inflate(R.menu.gallery_context, menu);
+		int portfolioTextId = R.string.menuItemAddToPortfolio;
+		if (PortfolioAccess.isInPortfolio(getImageFromMenuInfo(menuInfo))) {
+			portfolioTextId = R.string.menuItemRemoveFromPortfolio;
+		}
+		menu.findItem(R.id.itemPortfolio).setTitle(portfolioTextId);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterView.AdapterContextMenuInfo info;
-		try {
-			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-		} catch (ClassCastException e) {
-			Logger.e("bad menuInfo", e);
+		File image = getImageFromMenuInfo(item.getMenuInfo());
+		if (image == null) {
 			return false;
 		}
-
-		File image = images[(int) info.id];
 		switch (item.getItemId()) {
 		case R.id.itemPortfolio:
-			PortfolioAccess.addToPortfolio(getActivity(), image);
+			if (getString(R.string.menuItemAddToPortfolio).equals(item.getTitle())) {
+				PortfolioAccess.addToPortfolio(getActivity(), image);
+			}else {
+				PortfolioAccess.removeFromPortfolio(image);
+				reload();
+			}
 			return true;
 		case R.id.itemUseAsGalleryImage:
 			session.setImage(image);
@@ -153,6 +162,17 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 		default:
 			return super.onContextItemSelected(item);
+		}
+	}
+
+	private File getImageFromMenuInfo(ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info;
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+			return images[(int) info.id];
+		} catch (ClassCastException e) {
+			Logger.e("bad menuInfo", e);
+			return null;
 		}
 
 	}
