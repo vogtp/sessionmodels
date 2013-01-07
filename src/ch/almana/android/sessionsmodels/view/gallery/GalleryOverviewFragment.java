@@ -28,7 +28,7 @@ import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
 public class GalleryOverviewFragment extends Fragment implements OnItemClickListener {
-
+	// http://stackoverflow.com/questions/6074270/built-in-gallery-in-specific-folder/8255674#8255674
 
 	private SessionModel session;
 

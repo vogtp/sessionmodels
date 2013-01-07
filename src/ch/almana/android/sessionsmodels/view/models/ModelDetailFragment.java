@@ -69,6 +69,10 @@ public class ModelDetailFragment extends Fragment {
 
 	private AnswersModel[] answers;
 
+	private EditText etDoes;
+
+	private EditText etDonts;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -93,6 +97,8 @@ public class ModelDetailFragment extends Fragment {
 		etModelName = ((EditText) rootView.findViewById(R.id.etModelName));
 		etTel = ((EditText) rootView.findViewById(R.id.etTel));
 		etEmail = ((EditText) rootView.findViewById(R.id.etEmail));
+		etDoes = ((EditText) rootView.findViewById(R.id.etDoes));
+		etDonts = ((EditText) rootView.findViewById(R.id.etDonts));
 		ivModelImage = ((ImageView) rootView.findViewById(R.id.ivModelImage));
 		lvAnswers = ((ListView) rootView.findViewById(R.id.lvAnswers));
 		buAge = ((Button) rootView.findViewById(R.id.buAge));
@@ -181,6 +187,8 @@ public class ModelDetailFragment extends Fragment {
 			etModelName.setText(model.getName());
 			etEmail.setText(model.getEmail());
 			etTel.setText(model.getTelephone());
+			etDoes.setText(model.getDoes());
+			etDonts.setText(model.getDonts());
 			buAge.setText(getAge());
 			Bitmap bm = null;
 			if (model.getImage() != null) {
@@ -221,6 +229,9 @@ public class ModelDetailFragment extends Fragment {
 			model.setName(etModelName.getText().toString());
 			model.setEmail(etEmail.getText().toString());
 			model.setTelephone(etTel.getText().toString());
+			model.setTelephone(etTel.getText().toString());
+			model.setDoes(etDoes.getText().toString());
+			model.setDonts(etDonts.getText().toString());
 			try {
 				ModelAcess.save(model);
 			} catch (Exception e) {
