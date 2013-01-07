@@ -74,7 +74,7 @@ public class DirectoryAccess {
 	public static void save(BaseModel model) throws Exception {
 		JSONObject json = model.getJson();
 		FileWriter writer = new FileWriter(getInfoFile(model.getDir()));
-		writer.write(json.toString());
+		writer.write(json.toString(1));
 		writer.flush();
 		writer.close();
 	}
