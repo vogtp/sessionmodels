@@ -45,10 +45,12 @@ public class ModelDetailActivity extends FragmentActivity {
 			arguments.putInt(ModelDetailFragment.EXTRA_MODEL_ID,
 					id);
 			Fragment fragment = BaseModel.getInstanceById(this, id);
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.model_detail_container, fragment)
-					.commit();
+			if (fragment != null) {
+				fragment.setArguments(arguments);
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.model_detail_container, fragment)
+						.commit();
+			}
 		}
 	}
 

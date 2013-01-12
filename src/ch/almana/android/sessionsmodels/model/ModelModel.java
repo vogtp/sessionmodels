@@ -11,6 +11,8 @@ public class ModelModel extends BaseModel {
 
 
 
+	private static final String ADDRESS = "address";
+
 	public static final long NO_BIRTHDAY = Long.MIN_VALUE;
 
 	private static final String BIRTHDAY = "birthday";
@@ -24,6 +26,7 @@ public class ModelModel extends BaseModel {
 	private String nick;
 	private String telephone;
 	private String email;
+	private String address;
 	private String does;
 	private String donts;
 	private long birthday = NO_BIRTHDAY;
@@ -57,6 +60,7 @@ public class ModelModel extends BaseModel {
 		telephone = json.optString(TELEPHONE);
 		does = json.optString(DOES);
 		donts = json.optString(DONTS);
+		address = json.optString(ADDRESS);
 	}
 
 	@Override
@@ -67,6 +71,7 @@ public class ModelModel extends BaseModel {
 		json.put(BIRTHDAY, birthday);
 		json.put(EMAIL, email);
 		json.put(TELEPHONE, telephone);
+		json.put(ADDRESS, address);
 		return json;
 	}
 
@@ -122,5 +127,11 @@ public class ModelModel extends BaseModel {
 	}
 	public void setDonts(String donts) {
 		this.donts = donts;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

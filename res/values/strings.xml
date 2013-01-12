@@ -24,5 +24,6 @@
     <string name="menuItemUseAsGalleryImage">Use as gallery image</string>
     <string name="does">Does</string>
     <string name="donts">Donts</string>
+    <string name="hintAddress">Address</string>
 
 </resources>

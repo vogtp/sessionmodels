@@ -11,14 +11,10 @@ import ch.almana.android.sessionsmodels.model.SessionModel;
 
 public class SessionAcess extends DirectoryAccess {
 
-	/**
-	 * An array of sample (dummy) items.
-	 */
+	public static final List<SessionModel> DUMMIES = new ArrayList<SessionModel>();
+
 	private static List<SessionModel> items = new ArrayList<SessionModel>();
 
-	/**
-	 * A map of sample (dummy) items, by ID.
-	 */
 	private static Map<String, SessionModel> ITEM_MAP = new HashMap<String, SessionModel>();
 
 	public static List<SessionModel> getSessions() {
@@ -28,10 +24,13 @@ public class SessionAcess extends DirectoryAccess {
 	public static List<SessionModel> getSessions(boolean reread) {
 		if (items.size() < 1 || reread) {
 			items.clear();
-			File modelsDir = getSessionsDir();
-			File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
-			for (int i = 0; i < models.length; i++) {
-				File m = models[i];
+			File sessionsDir = getSessionsDir();
+			File[] sessions = sessionsDir.listFiles(DirectoryAccess.directoryFilter);
+			if (sessions == null) {
+				return DUMMIES;
+			}
+			for (int i = 0; i < sessions.length; i++) {
+				File m = sessions[i];
 				SessionModel session = null;
 				try {
 					session = new SessionModel(readJsonInfo(m));

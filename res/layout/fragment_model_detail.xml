@@ -66,6 +66,34 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/etEmail"
             android:hint="@string/hintTel" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            style="@style/styleEtModelDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etTel"
+            android:hint="@string/hintAddress"
+            android:lines="2" />
+ 
+        <ImageButton
+            android:id="@+id/ibAddressOnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/etAddress"
+            android:layout_toRightOf="@+id/etAddress"
+            android:src="@android:drawable/ic_dialog_map" />
+
+        <ImageButton
+            android:id="@+id/ibPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etTel"
+            android:layout_alignLeft="@+id/ibAddressOnMap"
+            android:layout_alignRight="@+id/ibAddressOnMap"
+            android:layout_below="@+id/etEmail"
+            android:src="@android:drawable/ic_dialog_dialer" />
     </RelativeLayout>
 
     <LinearLayout

@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import ch.almana.android.sessionsmodels.R;
@@ -73,6 +74,12 @@ public class ModelDetailFragment extends Fragment {
 
 	private EditText etDonts;
 
+	private EditText etAddress;
+
+	private ImageButton ibAddressOnMap;
+
+	private ImageButton ibPhone;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -96,12 +103,15 @@ public class ModelDetailFragment extends Fragment {
 		etModelNick = ((EditText) rootView.findViewById(R.id.etModelNick));
 		etModelName = ((EditText) rootView.findViewById(R.id.etModelName));
 		etTel = ((EditText) rootView.findViewById(R.id.etTel));
+		etAddress = ((EditText) rootView.findViewById(R.id.etAddress));
 		etEmail = ((EditText) rootView.findViewById(R.id.etEmail));
 		etDoes = ((EditText) rootView.findViewById(R.id.etDoes));
 		etDonts = ((EditText) rootView.findViewById(R.id.etDonts));
 		ivModelImage = ((ImageView) rootView.findViewById(R.id.ivModelImage));
 		lvAnswers = ((ListView) rootView.findViewById(R.id.lvAnswers));
 		buAge = ((Button) rootView.findViewById(R.id.buAge));
+		ibAddressOnMap = ((ImageButton) rootView.findViewById(R.id.ibAddressOnMap));
+		ibPhone = ((ImageButton) rootView.findViewById(R.id.ibPhone));
 		lvAnswers.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -158,6 +168,24 @@ public class ModelDetailFragment extends Fragment {
 				startActivityForResult(intent, CAPTURE_IMAGE);
 			}
 		});
+		ibAddressOnMap.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse("geo:0,0?q=" + model.getAddress()));
+				getActivity().startActivity(intent);
+			}
+		});
+		ibPhone.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_DEFAULT);
+				intent.setData(Uri.parse("tel:" + model.getTelephone()));
+				getActivity().startActivity(intent);
+			}
+		});
 		return rootView;
 	}
 
@@ -187,6 +215,7 @@ public class ModelDetailFragment extends Fragment {
 			etModelName.setText(model.getName());
 			etEmail.setText(model.getEmail());
 			etTel.setText(model.getTelephone());
+			etAddress.setText(model.getAddress());
 			etDoes.setText(model.getDoes());
 			etDonts.setText(model.getDonts());
 			buAge.setText(getAge());
@@ -229,7 +258,7 @@ public class ModelDetailFragment extends Fragment {
 			model.setName(etModelName.getText().toString());
 			model.setEmail(etEmail.getText().toString());
 			model.setTelephone(etTel.getText().toString());
-			model.setTelephone(etTel.getText().toString());
+			model.setAddress(etAddress.getText().toString());
 			model.setDoes(etDoes.getText().toString());
 			model.setDonts(etDonts.getText().toString());
 			try {

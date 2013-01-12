@@ -19,14 +19,10 @@ import ch.almana.android.sessionsmodels.view.ModelListFragment;
 
 public class ModelAcess extends DirectoryAccess {
 
-	/**
-	 * An array of sample (dummy) items.
-	 */
+	public static final List<ModelModel> DUMMIES = new ArrayList<ModelModel>();
+
 	private static List<ModelModel> items = new ArrayList<ModelModel>();
 
-	/**
-	 * A map of sample (dummy) items, by ID.
-	 */
 	private static Map<String, ModelModel> ITEM_MAP = new HashMap<String, ModelModel>();
 
 	public static List<ModelModel> getModels(boolean reread) {
@@ -35,6 +31,9 @@ public class ModelAcess extends DirectoryAccess {
 			items.clear();
 			File modelsDir = getModelsDir();
 			File[] models = modelsDir.listFiles(DirectoryAccess.directoryFilter);
+			if (models == null) {
+				return DUMMIES;
+			}
 			for (int i = 0; i < models.length; i++) {
 				File m = models[i];
 				ModelModel model = null;
