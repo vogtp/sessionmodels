@@ -76,7 +76,7 @@
             android:layout_below="@+id/etTel"
             android:hint="@string/hintAddress"
             android:lines="2" />
- 
+
         <ImageButton
             android:id="@+id/ibAddressOnMap"
             android:layout_width="wrap_content"
@@ -94,6 +94,14 @@
             android:layout_alignRight="@+id/ibAddressOnMap"
             android:layout_below="@+id/etEmail"
             android:src="@android:drawable/ic_dialog_dialer" />
+
+        <ImageButton
+            android:id="@+id/ibMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ibPhone"
+            android:layout_below="@+id/etModelName"
+            android:src="@android:drawable/ic_dialog_email" />
     </RelativeLayout>
 
     <LinearLayout

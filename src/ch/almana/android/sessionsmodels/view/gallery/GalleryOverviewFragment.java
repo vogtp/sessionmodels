@@ -22,6 +22,7 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.PortfolioAccess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
+import ch.almana.android.sessionsmodels.helper.GalleryStartHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
@@ -76,10 +77,12 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
-		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
-		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
-		getActivity().startActivity(i);
+		//		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
+		//		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
+		//		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
+		//		getActivity().startActivity(i);
+		GalleryStartHelper gallery = new GalleryStartHelper(getActivity());
+		gallery.openGallery(session.getDir());
 	}
 
 	@Override
