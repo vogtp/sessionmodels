@@ -19,6 +19,9 @@ import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -92,7 +95,7 @@ public class ModelDetailFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		setHasOptionsMenu(true);
 		if (getArguments().containsKey(EXTRA_MODEL_ID)) {
 			model = (ModelModel) ModelListFragment.getListItems(getActivity()).get(getArguments().getInt(EXTRA_MODEL_ID));
 		}
@@ -327,5 +330,30 @@ public class ModelDetailFragment extends Fragment {
 			//			ivModelImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 			//			ivModelImage.setAdjustViewBounds(true);
 		}
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.modelfilter_options, menu);
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		menu.findItem(R.id.itemCurrentModel).setChecked(model.isCurrent());
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemCurrentModel:
+			model.setCurrent(!model.isCurrent());
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
 	}
 }

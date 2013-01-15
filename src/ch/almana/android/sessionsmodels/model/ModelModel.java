@@ -11,6 +11,8 @@ public class ModelModel extends BaseModel {
 
 
 
+	private static final String CURRENT = "current";
+
 	private static final String ADDRESS = "address";
 
 	public static final long NO_BIRTHDAY = Long.MIN_VALUE;
@@ -29,6 +31,7 @@ public class ModelModel extends BaseModel {
 	private String address;
 	private String does;
 	private String donts;
+	private boolean current = true;
 	private long birthday = NO_BIRTHDAY;
 
 	public ModelModel(String name, File dir) {
@@ -61,6 +64,7 @@ public class ModelModel extends BaseModel {
 		does = json.optString(DOES);
 		donts = json.optString(DONTS);
 		address = json.optString(ADDRESS);
+		current = json.optBoolean(CURRENT, true);
 	}
 
 	@Override
@@ -72,6 +76,7 @@ public class ModelModel extends BaseModel {
 		json.put(EMAIL, email);
 		json.put(TELEPHONE, telephone);
 		json.put(ADDRESS, address);
+		json.put(CURRENT, current);
 		return json;
 	}
 
@@ -133,5 +138,13 @@ public class ModelModel extends BaseModel {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isCurrent() {
+		return current;
+	}
+
+	public void setCurrent(boolean current) {
+		this.current = current;
 	}
 }

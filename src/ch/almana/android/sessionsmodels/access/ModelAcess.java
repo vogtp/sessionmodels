@@ -9,7 +9,6 @@ import java.util.Map;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
 import ch.almana.android.sessionsmodels.R;
@@ -25,7 +24,7 @@ public class ModelAcess extends DirectoryAccess {
 
 	private static Map<String, ModelModel> ITEM_MAP = new HashMap<String, ModelModel>();
 
-	public static List<ModelModel> getModels(boolean reread) {
+	public static List<ModelModel> getModels(boolean reread, boolean hideNotcurrentModels) {
 
 		if (reread || items.size() < 1) {
 			items.clear();
@@ -45,12 +44,17 @@ public class ModelAcess extends DirectoryAccess {
 				if (model == null) {
 					model = new ModelModel(m.getName(), m, new File(m, "model.JPG"));
 				}
-				addItem(model);
+				if (hideNotcurrentModels) {
+					if (model.isCurrent()) {
+						addItem(model);
+					}
+				} else {
+					addItem(model);
+				}
 			}
 		}
 		return items;
 	}
-
 
 	private static void addItem(ModelModel item) {
 		items.add(item);
@@ -81,7 +85,7 @@ public class ModelAcess extends DirectoryAccess {
 						ModelModel model = new ModelModel(nick, modelDir);
 						try {
 							save(model);
-							ctx.sendBroadcast(new Intent(ModelListFragment.LIST_CHANGED));
+							ModelListFragment.sendListChangedBroadcast(ctx);
 						} catch (Exception e) {
 							Logger.e("Cannot save model info after creating new model", e);
 							Toast.makeText(ctx, R.string.dia_add_model_fail, Toast.LENGTH_LONG).show();

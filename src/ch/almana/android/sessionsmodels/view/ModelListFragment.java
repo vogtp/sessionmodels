@@ -16,13 +16,14 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.ModelAcess;
 import ch.almana.android.sessionsmodels.access.PortfolioAccess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
+import ch.almana.android.sessionsmodels.helper.SettingsSessionModels;
 import ch.almana.android.sessionsmodels.model.BaseModel;
 import ch.almana.android.sessionsmodels.model.TitleModel;
 import ch.almana.android.sessionsmodels.view.adapter.OverviewAdapter;
 
 public class ModelListFragment extends ListFragment {
 
-	public static final String LIST_CHANGED = "LIST_CHANGED";
+	private static final String LIST_CHANGED = "LIST_CHANGED";
 
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
@@ -61,6 +62,8 @@ public class ModelListFragment extends ListFragment {
 
 	private static ArrayList<BaseModel> listItems;
 
+	private static boolean hideNotCurrentModels;
+
 	private BroadcastReceiver listchangedReceiver;
 
 	/**
@@ -78,7 +81,7 @@ public class ModelListFragment extends ListFragment {
 			listItems = new ArrayList<BaseModel>();
 			listItems.add(PortfolioAccess.getPortfolio(ctx));
 			listItems.add(new TitleModel(ctx.getString(R.string.models)));
-			listItems.addAll(ModelAcess.getModels(reread));
+			listItems.addAll(ModelAcess.getModels(reread, SettingsSessionModels.getInstance(ctx).isHideNotcurrentModels()));
 			listItems.add(new TitleModel(ctx.getString(R.string.sessions)));
 			listItems.addAll(SessionAcess.getSessions(reread));
 		}
@@ -180,6 +183,10 @@ public class ModelListFragment extends ListFragment {
 		}
 
 		mActivatedPosition = position;
+	}
+
+	public static void sendListChangedBroadcast(Context ctx) {
+		ctx.sendBroadcast(new Intent(LIST_CHANGED));
 	}
 
 }

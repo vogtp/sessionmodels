@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.ModelAcess;
+import ch.almana.android.sessionsmodels.helper.SettingsSessionModels;
 import ch.almana.android.sessionsmodels.model.BaseModel;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
@@ -94,7 +96,15 @@ public class ModelListActivity extends FragmentActivity
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.main_options, menu);
+		SubMenu modelsFilter = menu.addSubMenu("Models filter");
+		getMenuInflater().inflate(R.menu.modelfilter_options, modelsFilter);
 		return true;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.itemCurrentModel).setChecked(!SettingsSessionModels.getInstance(this).isHideNotcurrentModels());
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
@@ -102,6 +112,12 @@ public class ModelListActivity extends FragmentActivity
 		switch (item.getItemId()) {
 		case R.id.itemAddModel:
 			ModelAcess.addModel(this);
+			return true;
+
+		case R.id.itemCurrentModel:
+			SettingsSessionModels settings = SettingsSessionModels.getInstance(this);
+			settings.setHideNotcurrentModels(!settings.isHideNotcurrentModels());
+			ModelListFragment.sendListChangedBroadcast(this);
 			return true;
 
 		default:

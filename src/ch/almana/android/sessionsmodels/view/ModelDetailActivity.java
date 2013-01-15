@@ -70,4 +70,11 @@ public class ModelDetailActivity extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		ModelListFragment.sendListChangedBroadcast(this);
+	}
+
 }

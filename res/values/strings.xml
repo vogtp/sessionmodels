@@ -25,5 +25,6 @@
     <string name="does">Does</string>
     <string name="donts">Donts</string>
     <string name="hintAddress">Address</string>
+    <string name="menuItemCurrentModel">Current</string>
 
 </resources>
