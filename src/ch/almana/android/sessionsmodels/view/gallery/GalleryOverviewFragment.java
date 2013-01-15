@@ -3,7 +3,6 @@ package ch.almana.android.sessionsmodels.view.gallery;
 import java.io.File;
 import java.io.IOException;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -157,7 +156,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 			session.setImage(image);
 			try {
 				SessionAcess.save(session);
-				getActivity().sendBroadcast(new Intent(ModelListFragment.LIST_CHANGED));
+				ModelListFragment.sendListChangedBroadcast(getActivity());
 			} catch (Exception e) {
 				Logger.e("Cannot save session", e);
 			}
