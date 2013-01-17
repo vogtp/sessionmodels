@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -226,6 +227,11 @@ public class ModelDetailFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		if (model != null) {
+			FragmentActivity activity = getActivity();
+			if (activity != null) {
+				getActivity().setTitle(getString(R.string.fragement_title_model_details, model.getNick()));
+			}
+
 			etModelNick.setText(model.getNick());
 			etModelName.setText(model.getName());
 			etEmail.setText(model.getEmail());
