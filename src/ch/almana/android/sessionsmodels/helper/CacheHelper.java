@@ -56,7 +56,15 @@ public class CacheHelper {
 	}
 
 	public boolean cacheExists(File f, int resolution) {
-		return getCacheFile(f, resolution).exists();
+		File cacheFile = getCacheFile(f, resolution);
+		if (cacheFile.exists()) {
+			if (cacheFile.lastModified() < f.lastModified()) {
+				cacheFile.delete();
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public File getFile(File f, int resolution) {
