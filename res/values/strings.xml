@@ -27,5 +27,6 @@
     <string name="hintAddress">Address</string>
     <string name="menuItemCurrentModel">Current</string>
     <string name="fragement_title_model_details">Model: %s</string>
+    <string name="fragement_title_session">Session: %s</string>
 
 </resources>

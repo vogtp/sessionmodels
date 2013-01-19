@@ -36,7 +36,7 @@ public class ImagePagerActivity extends Activity {
 		}
 		File[] images = session.getDir().listFiles();
 
-		SpinnerAdapter adapter = new ImageAdapter(images, ImageHelper.getDisplayWidth(this));
+		SpinnerAdapter adapter = new ImageAdapter(this, images, ImageHelper.getDisplayWidth(this));
 		gallery.setAdapter(adapter);
 	}
 

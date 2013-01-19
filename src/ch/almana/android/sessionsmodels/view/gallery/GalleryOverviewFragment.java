@@ -79,7 +79,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 			}
 			images = session.getDir().listFiles();
-			gridview.setAdapter(new GalleryOverviewImageAdapter(images, 250));
+			gridview.setAdapter(new GalleryOverviewImageAdapter(getActivity(), images, 250));
 		}
 	}
 

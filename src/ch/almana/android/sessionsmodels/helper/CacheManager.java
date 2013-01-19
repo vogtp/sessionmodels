@@ -10,12 +10,12 @@ import android.graphics.Bitmap.CompressFormat;
 import ch.almana.android.sessionsmodels.log.Logger;
 
 
-public class CacheHelper {
+public class CacheManager {
 
 	private final Context context;
 
 
-	public CacheHelper(Context context) {
+	public CacheManager(Context context) {
 		super();
 		this.context = context;
 	}

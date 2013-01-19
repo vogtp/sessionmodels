@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 import ch.almana.android.sessionsmodels.R;
+import ch.almana.android.sessionsmodels.helper.CacheBuilderAsyncTask;
 import ch.almana.android.sessionsmodels.helper.ImageHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 
@@ -22,10 +23,11 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 	int imageSize;
 	private LayoutParams layoutParams;
 
-	public ImageAdapter(File[] images, int imageSize) {
+	public ImageAdapter(Context ctx, File[] images, int imageSize) {
 		super();
 		this.images = images;
 		this.imageSize = imageSize;
+		CacheBuilderAsyncTask.cacheFiles(ctx, images, imageSize);
 	}
 
 	@Override

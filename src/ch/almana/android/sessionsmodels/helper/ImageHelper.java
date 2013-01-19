@@ -19,7 +19,7 @@ public class ImageHelper {
 			throw new FileNotFoundException();
 		}
 		Bitmap bitmap = null;
-		CacheHelper cacheHelper = new CacheHelper(ctx);
+		CacheManager cacheHelper = new CacheManager(ctx);
 		if (cacheHelper.cacheExists(image, width)) {
 			bitmap = BitmapFactory.decodeFile(cacheHelper.getFile(image, width).getAbsolutePath());
 		} else {
