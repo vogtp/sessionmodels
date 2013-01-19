@@ -23,6 +23,7 @@ import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
 import ch.almana.android.sessionsmodels.helper.GalleryStartHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
+import ch.almana.android.sessionsmodels.model.PortfolioModel;
 import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
@@ -69,6 +70,14 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	private void reload() {
 		if (session != null) {
+			if (getActivity() != null) {
+				if (session instanceof PortfolioModel) {
+					getActivity().setTitle(R.string.portfolio);
+				} else if (session instanceof SessionModel) {
+					getActivity().setTitle(getString(R.string.fragement_title_session, session.getName()));
+				}
+
+			}
 			images = session.getDir().listFiles();
 			gridview.setAdapter(new GalleryOverviewImageAdapter(images, 250));
 		}
