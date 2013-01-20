@@ -35,7 +35,7 @@ public class SessionAcess extends DirectoryAccess {
 				try {
 					session = new SessionModel(readJsonInfo(m));
 				} catch (Exception e) {
-					Logger.e("Cannot parse json", e);
+					Logger.i("Cannot parse json", e);
 				}
 				if (session == null) {
 					session = new SessionModel(m.getName(), m, m.listFiles()[0]);
