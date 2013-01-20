@@ -12,7 +12,7 @@ import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.gallery.GalleryOverviewFragment;
 import ch.almana.android.sessionsmodels.view.models.ModelDetailFragment;
 
-public  class BaseModel {
+public class BaseModel implements Comparable<BaseModel> {
 	private static final String DIRECTORY = "directory";
 	private static final String IMAGE_PATH = "imagePath";
 	private static final String NAME = "name";
@@ -106,5 +106,13 @@ public  class BaseModel {
 
 	public File getNoMediaFile() {
 		return DirectoryAccess.getNoMediaFile(dir);
+	}
+
+	@Override
+	public int compareTo(BaseModel another) {
+		if (another == null) {
+			return -1;
+		}
+		return name.compareTo(another.getName());
 	}
 }
