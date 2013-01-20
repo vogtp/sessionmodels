@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.view.Display;
+import ch.almana.android.sessionsmodels.log.Logger;
 
 public class ImageHelper {
 
@@ -24,27 +25,32 @@ public class ImageHelper {
 			bitmap = BitmapFactory.decodeFile(cacheHelper.getFile(image, width).getAbsolutePath());
 		} else {
 
-			bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
-			if (bitmap == null) {
-				return bitmap; // Checking for null & return, as suggested in comments
+			try {
+				bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+
+				if (bitmap != null) {
+
+					// Get current dimensions AND the desired bounding box
+					int w = bitmap.getWidth();
+					int h = bitmap.getHeight();
+					int bounding = dpToPx(ctx, width);
+
+					// Determine how much to scale: the dimension requiring less scaling is
+					// closer to the its side. This way the image always stays inside your
+					// bounding box AND either x/y axis touches it.  
+					float xScale = ((float) bounding) / w;
+					float yScale = ((float) bounding) / h;
+					float scale = (xScale <= yScale) ? xScale : yScale;
+
+					// Create a matrix for the scaling and add the scaling data
+					Matrix matrix = new Matrix();
+					matrix.postScale(scale, scale);
+					bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+					cacheHelper.cacheBitmap(image, bitmap, width);
+				}
+			} catch (OutOfMemoryError e) {
+				Logger.e("Scaling " + image.getName() + " used to much memory", e);
 			}
-			// Get current dimensions AND the desired bounding box
-			int w = bitmap.getWidth();
-			int h = bitmap.getHeight();
-			int bounding = dpToPx(ctx, width);
-
-			// Determine how much to scale: the dimension requiring less scaling is
-			// closer to the its side. This way the image always stays inside your
-			// bounding box AND either x/y axis touches it.  
-			float xScale = ((float) bounding) / w;
-			float yScale = ((float) bounding) / h;
-			float scale = (xScale <= yScale) ? xScale : yScale;
-
-			// Create a matrix for the scaling and add the scaling data
-			Matrix matrix = new Matrix();
-			matrix.postScale(scale, scale);
-			bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
-			cacheHelper.cacheBitmap(image, bitmap, width);
 		}
 
 		return bitmap;
