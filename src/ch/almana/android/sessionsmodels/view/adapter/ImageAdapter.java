@@ -44,6 +44,9 @@ public class ImageAdapter implements SpinnerAdapter, ListAdapter {
 
 	@Override
 	public int getCount() {
+		if (images == null) {
+			return 0;
+		}
 		return images.length;
 	}
 

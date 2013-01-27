@@ -32,6 +32,9 @@ public class CacheBuilderAsyncTask extends AsyncTask<File, Object, Object> {
 	}
 
 	public static void cacheFiles(Context ctx, File[] images, int imageSize) {
+		if (images == null) {
+			return;
+		}
 		CacheBuilderAsyncTask cb = new CacheBuilderAsyncTask(ctx, imageSize);
 		cb.execute(images);
 	}
