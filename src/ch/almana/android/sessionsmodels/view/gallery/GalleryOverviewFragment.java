@@ -3,6 +3,7 @@ package ch.almana.android.sessionsmodels.view.gallery;
 import java.io.File;
 import java.io.IOException;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -21,7 +22,6 @@ import ch.almana.android.sessionsmodels.R;
 import ch.almana.android.sessionsmodels.access.PortfolioAccess;
 import ch.almana.android.sessionsmodels.access.SessionAcess;
 import ch.almana.android.sessionsmodels.helper.GalleryHelper;
-import ch.almana.android.sessionsmodels.helper.GalleryStartHelper;
 import ch.almana.android.sessionsmodels.log.Logger;
 import ch.almana.android.sessionsmodels.model.PortfolioModel;
 import ch.almana.android.sessionsmodels.model.SessionModel;
@@ -73,7 +73,7 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 			if (getActivity() != null) {
 				if (session instanceof PortfolioModel) {
 					getActivity().setTitle(R.string.portfolio);
-				} else if (session instanceof SessionModel) {
+				} else {
 					getActivity().setTitle(getString(R.string.fragement_title_session, session.getName()));
 				}
 
@@ -85,12 +85,19 @@ public class GalleryOverviewFragment extends Fragment implements OnItemClickList
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		//		Intent i = new Intent(getActivity(), ImagePagerActivity.class);
-		//		i.putExtra(ImagePagerActivity.EXTRA_SESSION_ID, sessionId);
-		//		i.putExtra(ImagePagerActivity.EXTRA_IMAGE_ID, position);
+		//		Intent i = new Intent(getActivity(), ImageViewPagerActivity.class);
+		//		i.putExtra(ImageViewPagerActivity.EXTRA_SESSION_ID, sessionId);
+		//		i.putExtra(ImageViewPagerActivity.EXTRA_IMAGE_ID, position);
 		//		getActivity().startActivity(i);
-		GalleryStartHelper gallery = new GalleryStartHelper(getActivity());
-		gallery.openGallery(session.getDir());
+
+		Intent i = new Intent(getActivity(), ImageGalleryActivity.class);
+		i.putExtra(ImageGalleryActivity.EXTRA_SESSION_ID, sessionId);
+		i.putExtra(ImageGalleryActivity.EXTRA_IMAGE_ID, position);
+		getActivity().startActivity(i);
+
+		//		GalleryStartHelper gallery = new GalleryStartHelper(getActivity());
+		//		gallery.openGallery(session.getDir());
+
 	}
 
 	@Override

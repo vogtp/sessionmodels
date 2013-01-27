@@ -12,7 +12,7 @@ import ch.almana.android.sessionsmodels.model.SessionModel;
 import ch.almana.android.sessionsmodels.view.ModelListFragment;
 import ch.almana.android.sessionsmodels.view.adapter.ImageAdapter;
 
-public class ImagePagerActivity extends Activity {
+public class ImageGalleryActivity extends Activity {
 
 	public static final String EXTRA_SESSION_ID = "EXTRA_SESSION_ID";
 	public static final String EXTRA_IMAGE_ID = "EXTRA_IMAGE_ID";
