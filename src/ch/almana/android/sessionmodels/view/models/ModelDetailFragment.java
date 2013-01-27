@@ -86,6 +86,8 @@ public class ModelDetailFragment extends Fragment {
 
 	private ImageButton ibMail;
 
+	private ImageButton ibSMS;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -118,6 +120,7 @@ public class ModelDetailFragment extends Fragment {
 		buAge = ((Button) rootView.findViewById(R.id.buAge));
 		ibAddressOnMap = ((ImageButton) rootView.findViewById(R.id.ibAddressOnMap));
 		ibPhone = ((ImageButton) rootView.findViewById(R.id.ibPhone));
+		ibSMS = ((ImageButton) rootView.findViewById(R.id.ibSMS));
 		ibMail = ((ImageButton) rootView.findViewById(R.id.ibMail));
 		lvAnswers.setOnItemClickListener(new OnItemClickListener() {
 
@@ -199,6 +202,15 @@ public class ModelDetailFragment extends Fragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(Intent.ACTION_DEFAULT);
 				intent.setData(Uri.parse("mailto:" + model.getEmail()));
+				getActivity().startActivity(intent);
+			}
+		});
+		ibSMS.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_DEFAULT);
+				intent.setData(Uri.parse("sms:" + model.getTelephone()));
 				getActivity().startActivity(intent);
 			}
 		});

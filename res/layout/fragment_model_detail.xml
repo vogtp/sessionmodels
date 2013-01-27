@@ -102,6 +102,14 @@
             android:layout_alignLeft="@+id/ibPhone"
             android:layout_below="@+id/etModelName"
             android:src="@android:drawable/ic_dialog_email" />
+
+        <ImageButton
+            android:id="@+id/ibSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ibPhone"
+            android:layout_toRightOf="@+id/ibPhone"
+            android:src="@android:drawable/ic_dialog_email" />
     </RelativeLayout>
 
     <LinearLayout
