@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ch.almana.android.sessionsmodels"
+    package="ch.almana.android.sessionmodels"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -34,7 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ModelListActivity" />
         </activity>
-        <activity android:name="ch.almana.android.sessionsmodels.view.gallery.ImageGalleryActivity" >
+        <activity android:name="ch.almana.android.sessionmodels.view.gallery.ImageGalleryActivity" >
         </activity>
         <activity android:name=".view.gallery.ImageViewPagerActivity" >
         </activity>
