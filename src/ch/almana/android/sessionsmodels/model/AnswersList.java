@@ -16,7 +16,6 @@ public class AnswersList extends LinkedHashMap<String, AnswersModel> {
 		q.put("Studio", new AnswersModel("Studio"));
 		q.put("Outdoor", new AnswersModel("Outdoor"));
 		q.put("Portrait", new AnswersModel("Portrait", "Das Gesicht des Modells ist erkennbar."));
-		q.put("Erotisch", new AnswersModel("Erotisch", "Sinnliche Fotos die mehr andeuten."));
 		q.put("Teilakt", new AnswersModel("Teilakt"));
 		q.put("Akt", new AnswersModel("Akt"));
 		q.put("Modelvertrag", new AnswersModel("Modelvertrag"));

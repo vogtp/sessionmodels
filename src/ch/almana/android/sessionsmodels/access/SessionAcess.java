@@ -2,6 +2,7 @@ package ch.almana.android.sessionsmodels.access;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,8 @@ public class SessionAcess extends DirectoryAccess {
 				addItem(session );
 			}
 		}
-		return items;
+		Collections.sort(items);
+		return items; 
 	}
 
 	private static void addItem(SessionModel item) {
